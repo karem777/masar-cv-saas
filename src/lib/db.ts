@@ -3,6 +3,7 @@ import path from "path";
 import crypto from "crypto";
 
 export const ADMIN_EMAIL = "karemaboelnsr9@gmail.com";
+export const ADMIN_EMAIL_ALT = "karemaboelnsr24@gmail.com";
 export const DEFAULT_VODAFONE_CASH_NUMBER = "01011892362";
 
 export interface SiteSettings {
@@ -155,7 +156,8 @@ export function normalizeIdentifier(input: string): string {
 }
 
 export function isOwnerEmail(identifier: string): boolean {
-  return normalizeIdentifier(identifier) === ADMIN_EMAIL.toLowerCase();
+  const norm = normalizeIdentifier(identifier);
+  return norm === ADMIN_EMAIL.toLowerCase() || norm === ADMIN_EMAIL_ALT.toLowerCase();
 }
 
 export function getUserByToken(token?: string | null): UserRecord | null {
