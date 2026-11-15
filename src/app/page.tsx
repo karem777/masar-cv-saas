@@ -103,7 +103,7 @@ export default function MasarSaaSPage() {
   // Admin View Mode on the SAME URL
   const [adminViewMode, setAdminViewMode] = useState<"admin" | "app">("admin");
   const [adminTab, setAdminTab] = useState<
-    "payments" | "users" | "settings" | "support"
+    "payments" | "users" | "settings" | "support" | "marketing"
   >("payments");
   const [adminPayments, setAdminPayments] = useState<AdminPayment[]>([]);
   const [adminUsers, setAdminUsers] = useState<LoggedInUser[]>([]);
@@ -974,6 +974,18 @@ export default function MasarSaaSPage() {
                   </span>
                 )}
               </button>
+
+              <button
+                onClick={() => setAdminTab("marketing")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition ${
+                  adminTab === "marketing"
+                    ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                    : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
+                }`}
+              >
+                <Zap className="w-4 h-4" />
+                <span>🚀 مركز التسويق وجلب العملاء (مصر)</span>
+              </button>
             </div>
 
             <button
@@ -1669,6 +1681,135 @@ export default function MasarSaaSPage() {
                     );
                   })()
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* ADMIN TAB 5: EGYPT MARKETING STUDIO & ONE-CLICK SHARE HUB */}
+          {adminTab === "marketing" && (
+            <div className="space-y-6">
+              <div className="rounded-2xl bg-[#101017] border border-amber-500/30 p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 pb-4">
+                  <div>
+                    <h3 className="text-lg font-extrabold text-amber-200">
+                      🚀 مركز تسويق منصة مسارك في مصر (بوستات جاهزة لكل مجال + شير بضغطة زر)
+                    </h3>
+                    <p className="text-xs text-stone-400">
+                      انسخ أي إعلان بضغطة زر أو اضغط على روابط جروبات وظائف مصر المفتوحة بالأسفل للنشر المباشر
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmasar-cv-saas.onrender.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition"
+                    >
+                      مشاركة اللينك على فيسبوك
+                    </a>
+                    <a
+                      href={`https://wa.me/?text=${encodeURIComponent(
+                        "افحص الـ CV بتاعك مجاناً في 10 ثواني واستلم CV احترافي بمعيار جامعة هارفارد (عربي وإنجليزي) بنسبة قبول 96% على منصة مسارك 🇪🇬👑:\nhttps://masar-cv-saas.onrender.com"
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition"
+                    >
+                      مشاركة على واتساب
+                    </a>
+                  </div>
+                </div>
+
+                {/* Quick Direct Links to Biggest Egypt Job Groups */}
+                <div className="space-y-2">
+                  <h4 className="text-xs font-extrabold text-amber-400">
+                    روابط سريعة لأكبر جروبات التوظيف في مصر على فيسبوك (اضغط لفتح الجروب ولصق البوست):
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      {
+                        label: "جروبات وظائف مصر العامة",
+                        url: "https://www.facebook.com/search/groups/?q=%D9%88%D8%B8%D8%A7%D8%A6%D9%81%20%D9%85%D8%B5%D8%B1"
+                      },
+                      {
+                        label: "جروبات محاسبين وتجارة مصر",
+                        url: "https://www.facebook.com/search/groups/?q=%D9%88%D8%B8%D8%A7%D8%A6%D9%81%20%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D9%8A%D9%86%20%D9%85%D8%B5%D8%B1"
+                      },
+                      {
+                        label: "جروبات كول سنتر وخدمة عملاء",
+                        url: "https://www.facebook.com/search/groups/?q=call%20center%20jobs%20egypt"
+                      },
+                      {
+                        label: "جروبات مبيعات وتسويق عقاري/رقمي",
+                        url: "https://www.facebook.com/search/groups/?q=%D9%88%D8%B8%D8%A7%D8%A6%D9%81%20%D9%85%D8%A8%D9%8A%D8%B9%D8%A7%D8%AA%20%D9%85%D8%B5%D8%B1"
+                      },
+                      {
+                        label: "جروبات المبرمجين والمهندسين",
+                        url: "https://www.facebook.com/search/groups/?q=software%20jobs%20egypt"
+                      }
+                    ].map((g, i) => (
+                      <a
+                        key={i}
+                        href={g.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-3.5 py-2 rounded-xl bg-[#08080c] hover:bg-amber-500/20 border border-amber-500/30 text-xs font-bold text-amber-200 transition"
+                      >
+                        🔗 {g.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Ready-to-Copy Niche Posts */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3">
+                  {[
+                    {
+                      id: "post-general",
+                      title: "1. بوست شامل لجروبات الوظائف العامة وحديثي التخرج",
+                      text: `بتقدم على شغل في مصر على Wuzzuf أو LinkedIn ومحدش بيكلمك؟ المشكلة في الـ CV بتاعك! 🚨\n\nأغلب الشركات الكبيرة والبنوك في مصر دلوقتي بتستخدم نظام فرز آلي (ATS) بيرفض 75% من السير الذاتية أوتوماتيك لو مفهاش الكلمات المفتاحية للوظيفة!\n\nعشان كده عملنا منصة مسارك (Masarak) 🇪🇬👑:\n✅ فحص مجاني فوري في 10 ثواني: ارفع الـ CV بتاعك مع وصف الوظيفة وهتعرف درجتك الحقيقية والكلمات الناقصة.\n✅ استلم CV احترافي بمعيار جامعة هارفارد (عربي أو إنجليزي) بنسبة قبول 96% جاهز للطباعة PDF بحجم A4.\n✅ شامل Cover Letter + رسالة للـ HR + أهم أسئلة الإنترفيو المتوقعة بإجابتها!\n✅ تفعيل فوري بـ فودافون كاش بـ ${siteSettings.singlePlanPriceEgp} جنيه بس من غير فيزا.\n\n👇 جرب الفحص المجاني للـ CV بتاعك دلوقتي من هنا:\nhttps://masar-cv-saas.onrender.com`
+                    },
+                    {
+                      id: "post-sales-acc",
+                      title: "2. بوست مخصص لجروبات المحاسبين والمبيعات وخريجي تجارة",
+                      text: `لكل خريجي تجارة والمحاسبين ومديري المبيعات في مصر 🇪🇬💼\nلو بتقدم في بنوك أو شركات كبيرة والـ CV بتاعك مبيعديش مرحلة الفرز الأولية.. جرب تفحصه مجاناً على منصة مسارك (Masarak)!\n\nالموقع بيكشفلك في 10 ثواني ليه الـ ATS بيرفض السي في، وبيعيد صياغته بالكامل (بالعربي أو الإنجليزي) بمعيار جامعة هارفارد التنفيذي بنسبة توافق 96% مع الوظيفة + خطاب التقديم وأسئلة الإنترفيو المتوقعة!\n\n🔥 الفحص مجاني تماماً، واستلام الـ PDF الكامل فوري بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م فقط):\n👉 https://masar-cv-saas.onrender.com`
+                    },
+                    {
+                      id: "post-cs",
+                      title: "3. بوست مخصص لجروبات الكول سنتر وخدمة العملاء والشركات الأجنبية",
+                      text: `بتقدم في Vodafone UK / Concentrix / Teleperformance أو شركات Multinational ومحتاج CV إنجليزي أو عربي احترافي يعدي الـ ATS من أول مرة؟ 🎯\n\nدلوقتي على منصة مسارك (Masarak) تقدر ترفع الـ CV القديم بتاعك وتحط وصف الوظيفة، وفي 10 ثواني الذكاء الاصطناعي هيبنيلك Harvard Executive CV بنسبة قبول 96% جاهز للطباعة PDF + أهم أسئلة الإنترفيو وإجابتها النموذجية!\n\n✅ الدفع والتفعيل فوري بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م بس).\n👇 جرب الفحص المجاني دلوقتي:\nhttps://masar-cv-saas.onrender.com`
+                    },
+                    {
+                      id: "post-comment",
+                      title: "4. رد سريع (كومنت) لأي حد بيسأل عن شغل أو تظبيط CV في الجروبات",
+                      text: `نصيحة قبل ما تبعت الـ CV لأي شركة، افحصه الأول مجاناً على موقع مسارك عشان تتأكد إنه بيعدي فلتر الـ ATS ومش بيترفض أوتوماتيك، ولو درجته قليلة الموقع بيعيد كتابته بالكامل بالعربي أو الإنجليزي بمعيار جامعة هارفارد بنسبة 96%:\nhttps://masar-cv-saas.onrender.com`
+                    }
+                  ].map((p) => (
+                    <div
+                      key={p.id}
+                      className="rounded-2xl bg-[#08080c] border border-stone-800 p-4 flex flex-col justify-between space-y-3"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-bold text-xs text-amber-300">{p.title}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleCopy(p.text, p.id)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-extrabold transition"
+                        >
+                          {copiedId === p.id ? (
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                          <span>{copiedId === p.id ? "تم النسخ ✓" : "نسخ البوست"}</span>
+                        </button>
+                      </div>
+                      <pre className="whitespace-pre-wrap text-xs text-stone-300 font-sans leading-relaxed bg-[#040406] p-3 rounded-xl border border-stone-900">
+                        {p.text}
+                      </pre>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -3642,8 +3783,30 @@ export default function MasarSaaSPage() {
       )}
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-amber-500/15 py-6 text-center text-xs text-stone-500">
-        ✦ {siteSettings.siteNameAr} ({siteSettings.siteNameEn}) — المنصة التنفيذية لصياغة السيرة الذاتية | جميع الحقوق محفوظة
+      <footer className="relative z-10 border-t border-amber-500/15 py-6 text-center text-xs text-stone-500 space-y-3">
+        <div className="flex items-center justify-center gap-3 flex-wrap">
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(
+              "افحص الـ CV بتاعك مجاناً في 10 ثواني واستلم CV احترافي بمعيار جامعة هارفارد (عربي وإنجليزي) بنسبة قبول 96% على منصة مسارك 🇪🇬👑:\nhttps://masar-cv-saas.onrender.com"
+            )}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 font-bold text-xs transition"
+          >
+            <span>📲 شارك الموقع مع أصدقائك على واتساب</span>
+          </a>
+          <a
+            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmasar-cv-saas.onrender.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/40 text-blue-300 font-bold text-xs transition"
+          >
+            <span>👍 مشاركة على فيسبوك</span>
+          </a>
+        </div>
+        <div>
+          ✦ {siteSettings.siteNameAr} ({siteSettings.siteNameEn}) — المنصة التنفيذية لصياغة السيرة الذاتية | جميع الحقوق محفوظة
+        </div>
       </footer>
     </div>
   );
