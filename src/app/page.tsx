@@ -152,6 +152,7 @@ export default function MasarSaaSPage() {
   const [cvTemplate, setCvTemplate] = useState<"harvard" | "corporate" | "tech">(
     "harvard"
   );
+  const [cvLang, setCvLang] = useState<"auto" | "ar" | "en">("auto");
 
   // Active tab in results
   const [activeTab, setActiveTab] = useState<
@@ -302,7 +303,7 @@ export default function MasarSaaSPage() {
     reader.readAsDataURL(file);
   };
 
-  const runAnalysis = async () => {
+  const runAnalysis = async (overrideCvLang?: "auto" | "ar" | "en") => {
     if ((!cvText.trim() && !pdfBase64) || !jobDescription.trim()) {
       setErrorMsg(
         isAr
@@ -314,6 +315,7 @@ export default function MasarSaaSPage() {
 
     setErrorMsg("");
     setIsAnalyzing(true);
+    const activeCvLang = overrideCvLang || cvLang;
 
     try {
       const res = await fetch("/api/analyze", {
@@ -323,7 +325,8 @@ export default function MasarSaaSPage() {
           cvText,
           pdfBase64,
           jobDescription,
-          uiLang
+          uiLang,
+          cvLang: activeCvLang
         })
       });
 
@@ -844,15 +847,30 @@ export default function MasarSaaSPage() {
               </button>
             )}
 
-            {!currentUser?.isAdmin && (
+            <div className="flex items-center gap-0.5 p-1 rounded-full bg-[#09090e] border border-amber-500/35">
               <button
-                onClick={() => setUiLang(isAr ? "en" : "ar")}
-                className="flex items-center gap-1 text-xs font-bold px-3 py-2 rounded-full bg-[#09090e] hover:bg-[#151520] text-stone-300 border border-stone-800 transition"
+                type="button"
+                onClick={() => setUiLang("ar")}
+                className={`px-2.5 py-1 rounded-full text-xs font-extrabold transition ${
+                  isAr
+                    ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow"
+                    : "text-stone-400 hover:text-amber-200"
+                }`}
               >
-                <Globe className="w-3.5 h-3.5 text-amber-400" />
-                <span>{isAr ? "EN" : "عربي"}</span>
+                عربي
               </button>
-            )}
+              <button
+                type="button"
+                onClick={() => setUiLang("en")}
+                className={`px-2.5 py-1 rounded-full text-xs font-extrabold transition ${
+                  !isAr
+                    ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow"
+                    : "text-stone-400 hover:text-amber-200"
+                }`}
+              >
+                EN
+              </button>
+            </div>
           </div>
         </header>
       </div>
@@ -2088,20 +2106,58 @@ export default function MasarSaaSPage() {
             )}
 
             {/* Studio Command Bar */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#07070a]/90 border border-amber-500/25 rounded-2xl p-4">
-              <div className="flex items-center gap-3 text-xs text-stone-300">
-                <Shield className="w-5 h-5 text-amber-400 shrink-0" />
-                <span>
-                  {isAr
-                    ? "فحص مجاني فوري لدرجة الـ ATS مع إعادة بناء شاملة للسيرة الذاتية بمعيار جامعة هارفارد."
-                    : "Instant free ATS score audit and full Harvard Executive resume reconstruction."}
+            <div className="pt-2 flex flex-col lg:flex-row items-center justify-between gap-4 bg-[#07070a]/90 border border-amber-500/25 rounded-2xl p-4">
+              {/* Bilingual Output Language Selector (Arabic / English / Auto) */}
+              <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
+                <span className="text-xs font-extrabold text-amber-200 flex items-center gap-1.5">
+                  <Globe className="w-4 h-4 text-amber-400" />
+                  <span>
+                    {isAr
+                      ? "لغة استخراج السيرة الذاتية والخطاب:"
+                      : "Output CV Language:"}
+                  </span>
                 </span>
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#0e0e15] border border-amber-500/30">
+                  <button
+                    type="button"
+                    onClick={() => setCvLang("auto")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
+                      cvLang === "auto"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow"
+                        : "text-stone-400 hover:text-amber-200"
+                    }`}
+                  >
+                    {isAr ? "تلقائي (عربي / EN)" : "Auto Detect"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCvLang("ar")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
+                      cvLang === "ar"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow"
+                        : "text-stone-400 hover:text-amber-200"
+                    }`}
+                  >
+                    🇪🇬 {isAr ? "CV باللغة العربية" : "Arabic CV"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCvLang("en")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
+                      cvLang === "en"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow"
+                        : "text-stone-400 hover:text-amber-200"
+                    }`}
+                  >
+                    🇬🇧 {isAr ? "CV باللغة الإنجليزية" : "English CV"}
+                  </button>
+                </div>
               </div>
 
               <button
                 onClick={() => runAnalysis()}
                 disabled={isAnalyzing}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl font-black text-sm sm:text-base text-neutral-950 bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 shadow-[0_10px_35px_rgba(217,119,6,0.45)] disabled:opacity-60 transition cursor-pointer shrink-0"
+                className="w-full lg:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl font-black text-sm sm:text-base text-neutral-950 bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 shadow-[0_10px_35px_rgba(217,119,6,0.45)] disabled:opacity-60 transition cursor-pointer shrink-0"
               >
                 <Sparkles className={`w-5 h-5 ${isAnalyzing ? "animate-spin" : ""}`} />
                 <span>
@@ -2398,6 +2454,40 @@ export default function MasarSaaSPage() {
                     </div>
 
                     <div className="flex items-center gap-2.5 flex-wrap">
+                      {/* Quick CV Output Language Switcher right inside CV Preview */}
+                      <div className="flex items-center gap-1 p-1 rounded-xl bg-[#08080c] border border-amber-500/30">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCvLang("ar");
+                            runAnalysis("ar");
+                          }}
+                          disabled={isAnalyzing}
+                          className={`px-2.5 py-1.5 rounded-lg text-xs font-extrabold transition ${
+                            /[\u0600-\u06FF]/.test(editableCv.summary || editableCv.fullName)
+                              ? "bg-amber-400 text-neutral-950"
+                              : "text-stone-400 hover:text-amber-200"
+                          }`}
+                        >
+                          🇪🇬 CV عربي
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCvLang("en");
+                            runAnalysis("en");
+                          }}
+                          disabled={isAnalyzing}
+                          className={`px-2.5 py-1.5 rounded-lg text-xs font-extrabold transition ${
+                            !/[\u0600-\u06FF]/.test(editableCv.summary || editableCv.fullName)
+                              ? "bg-amber-400 text-neutral-950"
+                              : "text-stone-400 hover:text-amber-200"
+                          }`}
+                        >
+                          🇬🇧 English CV
+                        </button>
+                      </div>
+
                       {isUnlocked && (
                         <button
                           onClick={() => setIsEditingCv(!isEditingCv)}
@@ -2443,8 +2533,8 @@ export default function MasarSaaSPage() {
                     <div className="p-5 rounded-2xl lux-glass border border-amber-500/40 space-y-4">
                       <h4 className="text-xs font-bold text-amber-300">
                         {isAr
-                          ? "تعديل بيانات السيرة الذاتية مباشرة قبل الطباعة والتحميل:"
-                          : "Edit Resume Fields Live:"}
+                          ? "تعديل بيانات السيرة الذاتية مباشرة قبل الطباعة والتحميل (يدعم العربية والإنجليزية):"
+                          : "Edit Resume Fields Live (Arabic & English supported):"}
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <input
@@ -2452,7 +2542,8 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, fullName: e.target.value })
                           }
-                          placeholder="Full Name"
+                          dir="auto"
+                          placeholder="Full Name / الاسم الكامل"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
@@ -2460,7 +2551,8 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, targetTitle: e.target.value })
                           }
-                          placeholder="Target Title"
+                          dir="auto"
+                          placeholder="Target Title / المسمى الوظيفي"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
@@ -2468,7 +2560,8 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, tagline: e.target.value })
                           }
-                          placeholder="Executive Tagline"
+                          dir="auto"
+                          placeholder="Executive Tagline / الوصف المهني"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
@@ -2476,6 +2569,7 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, email: e.target.value })
                           }
+                          dir="ltr"
                           placeholder="Email"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
@@ -2484,6 +2578,7 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, phone: e.target.value })
                           }
+                          dir="ltr"
                           placeholder="Phone"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
@@ -2492,7 +2587,8 @@ export default function MasarSaaSPage() {
                           onChange={(e) =>
                             setEditableCv({ ...editableCv, location: e.target.value })
                           }
-                          placeholder="Location"
+                          dir="auto"
+                          placeholder="Location / الموقع"
                           className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                       </div>
@@ -2506,193 +2602,88 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, summary: e.target.value })
                           }
                           rows={4}
-                          dir="ltr"
+                          dir="auto"
                           className="w-full p-3 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                       </div>
                     </div>
                   )}
 
-                  {/* FULL-PAGE A4 EXECUTIVE RESUME SHEET */}
-                  <div className="relative">
-                    <div
-                      id="printable-cv-sheet"
-                      dir="ltr"
-                      className={`bg-white text-slate-900 rounded-2xl shadow-2xl max-w-[215mm] min-h-[297mm] mx-auto p-8 sm:p-12 space-y-5 overflow-hidden ${
-                        cvTemplate === "harvard"
-                          ? "font-serif"
-                          : "font-sans"
-                      }`}
-                    >
-                      {/* 1. EXECUTIVE HEADER */}
-                      <div
-                        className={`pb-4 ${
-                          cvTemplate === "harvard"
-                            ? "text-center border-b-2 border-slate-900"
-                            : cvTemplate === "corporate"
-                            ? "border-b-4 border-indigo-900 bg-slate-50 -mx-8 sm:-mx-12 -mt-8 sm:-mt-12 px-8 sm:px-12 pt-8 sm:pt-10 pb-6"
-                            : "border-b-2 border-slate-800"
-                        }`}
-                      >
-                        <h1
-                          className={`text-2xl sm:text-3xl font-extrabold tracking-tight uppercase ${
-                            cvTemplate === "corporate"
-                              ? "text-indigo-950"
-                              : "text-slate-900"
-                          }`}
-                        >
-                          {editableCv.fullName}
-                        </h1>
-                        <p
-                          className={`text-sm sm:text-base font-bold mt-1 ${
-                            cvTemplate === "corporate"
-                              ? "text-indigo-700"
-                              : cvTemplate === "tech"
-                              ? "text-emerald-700"
-                              : "text-slate-800"
-                          }`}
-                        >
-                          {editableCv.tagline || editableCv.targetTitle}
-                        </p>
+                  {/* FULL-PAGE A4 EXECUTIVE RESUME SHEET (BILINGUAL RTL ARABIC / LTR ENGLISH) */}
+                  {(() => {
+                    const isCvAr = /[\u0600-\u06FF]/.test(
+                      editableCv.summary || editableCv.fullName
+                    );
+                    return (
+                      <div className="relative">
                         <div
-                          className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 mt-2 ${
-                            cvTemplate === "harvard" ? "justify-center" : ""
+                          id="printable-cv-sheet"
+                          dir={isCvAr ? "rtl" : "ltr"}
+                          className={`bg-white text-slate-900 rounded-2xl shadow-2xl max-w-[215mm] min-h-[297mm] mx-auto p-8 sm:p-12 space-y-5 overflow-hidden ${
+                            isCvAr
+                              ? "font-sans"
+                              : cvTemplate === "harvard"
+                              ? "font-serif"
+                              : "font-sans"
                           }`}
                         >
-                          <span>{editableCv.location}</span>
-                          <span>•</span>
-                          <span>{editableCv.phone}</span>
-                          <span>•</span>
-                          <span>{editableCv.email}</span>
-                          {editableCv.linkedin && (
-                            <>
-                              <span>•</span>
-                              <span>{editableCv.linkedin}</span>
-                            </>
-                          )}
-                          {editableCv.portfolio && (
-                            <>
-                              <span>•</span>
-                              <span>{editableCv.portfolio}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* 2. EXECUTIVE SUMMARY */}
-                      <div className="space-y-1.5">
-                        <h2
-                          className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
-                            cvTemplate === "corporate"
-                              ? "text-indigo-900 border-indigo-200"
-                              : "text-slate-900 border-slate-300"
-                          }`}
-                        >
-                          Executive Summary & Leadership Profile
-                        </h2>
-                        <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed text-justify">
-                          {editableCv.summary}
-                        </p>
-                      </div>
-
-                      {/* LOCKED BLURRED REGION FOR FREE VISITORS */}
-                      <div
-                        className={
-                          !isUnlocked
-                            ? "blur-[6px] select-none pointer-events-none opacity-65 space-y-5"
-                            : "space-y-5"
-                        }
-                      >
-                        {/* 3. CATEGORIZED CORE COMPETENCIES & TECHNICAL MATRIX */}
-                        <div className="space-y-2">
-                          <h2
-                            className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
-                              cvTemplate === "corporate"
-                                ? "text-indigo-900 border-indigo-200"
-                                : "text-slate-900 border-slate-300"
+                          {/* 1. EXECUTIVE HEADER */}
+                          <div
+                            className={`pb-4 ${
+                              cvTemplate === "harvard"
+                                ? "text-center border-b-2 border-slate-900"
+                                : cvTemplate === "corporate"
+                                ? "border-b-4 border-indigo-900 bg-slate-50 -mx-8 sm:-mx-12 -mt-8 sm:-mt-12 px-8 sm:px-12 pt-8 sm:pt-10 pb-6"
+                                : "border-b-2 border-slate-800"
                             }`}
                           >
-                            Core Competencies & Areas of Expertise
-                          </h2>
-                          {editableCv.skillCategories &&
-                          editableCv.skillCategories.length > 0 ? (
-                            <div className="space-y-1.5 text-xs sm:text-[13px]">
-                              {editableCv.skillCategories.map((cat, idx) => (
-                                <div key={idx} className="leading-relaxed">
-                                  <span className="font-bold text-slate-900">
-                                    • {cat.category}:{" "}
-                                  </span>
-                                  <span className="text-slate-800">
-                                    {cat.items.join("  |  ")}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed font-medium">
-                              {editableCv.skills.join(" • ")}
+                            <h1
+                              className={`text-2xl sm:text-3xl font-extrabold tracking-tight uppercase ${
+                                cvTemplate === "corporate"
+                                  ? "text-indigo-950"
+                                  : "text-slate-900"
+                              }`}
+                            >
+                              {editableCv.fullName}
+                            </h1>
+                            <p
+                              className={`text-sm sm:text-base font-bold mt-1 ${
+                                cvTemplate === "corporate"
+                                  ? "text-indigo-700"
+                                  : cvTemplate === "tech"
+                                  ? "text-emerald-700"
+                                  : "text-slate-800"
+                              }`}
+                            >
+                              {editableCv.tagline || editableCv.targetTitle}
                             </p>
-                          )}
-                        </div>
-
-                        {/* 4. PROFESSIONAL EXPERIENCE (HARVARD XYZ STANDARD) */}
-                        <div className="space-y-4">
-                          <h2
-                            className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
-                              cvTemplate === "corporate"
-                                ? "text-indigo-900 border-indigo-200"
-                                : "text-slate-900 border-slate-300"
-                            }`}
-                          >
-                            Professional Experience
-                          </h2>
-                          {editableCv.experience.map((exp, idx) => (
-                            <div key={idx} className="space-y-1.5">
-                              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                <div>
-                                  <span className="font-extrabold text-sm text-slate-900">
-                                    {exp.role}
-                                  </span>
-                                  <span className="text-xs sm:text-sm font-bold text-indigo-800">
-                                    {" "}
-                                    — {exp.company}
-                                  </span>
-                                  {exp.location && (
-                                    <span className="text-xs text-slate-600">
-                                      {" "}
-                                      ({exp.location})
-                                    </span>
-                                  )}
-                                </div>
-                                <span className="text-xs font-bold text-slate-700">
-                                  {exp.period}
-                                </span>
-                              </div>
-
-                              {exp.scopeStatement && (
-                                <p className="text-xs italic text-slate-700 leading-relaxed">
-                                  {exp.scopeStatement}
-                                </p>
+                            <div
+                              className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 mt-2 ${
+                                cvTemplate === "harvard" ? "justify-center" : ""
+                              }`}
+                            >
+                              <span>{editableCv.location}</span>
+                              <span>•</span>
+                              <span dir="ltr">{editableCv.phone}</span>
+                              <span>•</span>
+                              <span dir="ltr">{editableCv.email}</span>
+                              {editableCv.linkedin && (
+                                <>
+                                  <span>•</span>
+                                  <span dir="ltr">{editableCv.linkedin}</span>
+                                </>
                               )}
-
-                              <ul className="list-disc pl-5 space-y-1 text-xs sm:text-[13px] text-slate-800 leading-relaxed">
-                                {exp.bullets.map((b, bIdx) => (
-                                  <li key={bIdx}>{b}</li>
-                                ))}
-                              </ul>
-
-                              {exp.keyAchievement && (
-                                <div className="text-xs font-semibold text-slate-900 bg-slate-100 px-3 py-1.5 rounded border-l-2 border-indigo-700">
-                                  ★ Key Impact: {exp.keyAchievement}
-                                </div>
+                              {editableCv.portfolio && (
+                                <>
+                                  <span>•</span>
+                                  <span dir="ltr">{editableCv.portfolio}</span>
+                                </>
                               )}
                             </div>
-                          ))}
-                        </div>
+                          </div>
 
-                        {/* 5. KEY PROJECTS & STRATEGIC INITIATIVES */}
-                        {editableCv.projects && editableCv.projects.length > 0 && (
-                          <div className="space-y-3">
+                          {/* 2. EXECUTIVE SUMMARY */}
+                          <div className="space-y-1.5">
                             <h2
                               className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
                                 cvTemplate === "corporate"
@@ -2700,92 +2691,25 @@ export default function MasarSaaSPage() {
                                   : "text-slate-900 border-slate-300"
                               }`}
                             >
-                              Selected Key Projects & Strategic Initiatives
+                              {isCvAr
+                                ? "الملخص التنفيذي والملف القيادي"
+                                : "Executive Summary & Leadership Profile"}
                             </h2>
-                            {editableCv.projects.map((proj, idx) => (
-                              <div key={idx} className="space-y-1">
-                                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                  <div>
-                                    <span className="font-bold text-xs sm:text-sm text-slate-900">
-                                      {proj.name}
-                                    </span>
-                                    <span className="text-xs text-indigo-700 font-semibold">
-                                      {" "}
-                                      | {proj.roleOrTech}
-                                    </span>
-                                  </div>
-                                  <span className="text-xs font-semibold text-slate-600">
-                                    {proj.period}
-                                  </span>
-                                </div>
-                                <ul className="list-disc pl-5 space-y-0.5 text-xs sm:text-[13px] text-slate-800 leading-relaxed">
-                                  {proj.bullets.map((b, bIdx) => (
-                                    <li key={bIdx}>{b}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
+                            <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed text-justify">
+                              {editableCv.summary}
+                            </p>
                           </div>
-                        )}
 
-                        {/* 6. EDUCATION & CREDENTIALS */}
-                        <div className="space-y-2">
-                          <h2
-                            className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
-                              cvTemplate === "corporate"
-                                ? "text-indigo-900 border-indigo-200"
-                                : "text-slate-900 border-slate-300"
-                            }`}
+                          {/* LOCKED BLURRED REGION FOR FREE VISITORS */}
+                          <div
+                            className={
+                              !isUnlocked
+                                ? "blur-[6px] select-none pointer-events-none opacity-65 space-y-5"
+                                : "space-y-5"
+                            }
                           >
-                            Education & Academic Credentials
-                          </h2>
-                          {editableCv.education.map((edu, idx) => (
-                            <div key={idx} className="space-y-0.5">
-                              <div className="flex flex-wrap items-baseline justify-between text-xs sm:text-[13px]">
-                                <div>
-                                  <span className="font-bold text-slate-900">
-                                    {edu.degree}
-                                  </span>
-                                  <span className="text-slate-700">
-                                    {" "}
-                                    — {edu.institution}
-                                  </span>
-                                </div>
-                                <span className="text-xs font-bold text-slate-700">
-                                  {edu.year}
-                                </span>
-                              </div>
-                              {edu.details && (
-                                <p className="text-xs text-slate-600">{edu.details}</p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* 7. CERTIFICATIONS & LANGUAGES */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                          {editableCv.certifications &&
-                            editableCv.certifications.length > 0 && (
-                              <div className="space-y-1.5">
-                                <h2
-                                  className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
-                                    cvTemplate === "corporate"
-                                      ? "text-indigo-900 border-indigo-200"
-                                      : "text-slate-900 border-slate-300"
-                                  }`}
-                                >
-                                  Certifications & Licenses
-                                </h2>
-                                <ul className="list-disc pl-4 space-y-0.5 text-xs text-slate-800">
-                                  {editableCv.certifications.map((c, idx) => (
-                                    <li key={idx}>{c}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-
-                          {editableCv.languages && editableCv.languages.length > 0 && (
-                            <div className="space-y-1.5">
+                            {/* 3. CATEGORIZED CORE COMPETENCIES & TECHNICAL MATRIX */}
+                            <div className="space-y-2">
                               <h2
                                 className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
                                   cvTemplate === "corporate"
@@ -2793,48 +2717,265 @@ export default function MasarSaaSPage() {
                                     : "text-slate-900 border-slate-300"
                                 }`}
                               >
-                                Languages
+                                {isCvAr
+                                  ? "الكفاءات الجوهرية ومصفوفة المهارات"
+                                  : "Core Competencies & Areas of Expertise"}
                               </h2>
-                              <ul className="list-disc pl-4 space-y-0.5 text-xs text-slate-800">
-                                {editableCv.languages.map((lang, idx) => (
-                                  <li key={idx}>{lang}</li>
-                                ))}
-                              </ul>
+                              {editableCv.skillCategories &&
+                              editableCv.skillCategories.length > 0 ? (
+                                <div className="space-y-1.5 text-xs sm:text-[13px]">
+                                  {editableCv.skillCategories.map((cat, idx) => (
+                                    <div key={idx} className="leading-relaxed">
+                                      <span className="font-bold text-slate-900">
+                                        • {cat.category}:{" "}
+                                      </span>
+                                      <span className="text-slate-800">
+                                        {cat.items.join("  |  ")}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed font-medium">
+                                  {editableCv.skills.join(" • ")}
+                                </p>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Floating Luxury Paywall Overlay when Locked */}
-                    {!isUnlocked && (
-                      <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-[#050507] via-[#050507]/90 to-transparent flex items-center justify-center p-4">
-                        <div className="lux-centurion-card border-2 border-amber-400/80 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
-                          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center mx-auto text-amber-300">
-                            <Crown className="w-6 h-6" />
+                            {/* 4. PROFESSIONAL EXPERIENCE (HARVARD XYZ STANDARD) */}
+                            <div className="space-y-4">
+                              <h2
+                                className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
+                                  cvTemplate === "corporate"
+                                    ? "text-indigo-900 border-indigo-200"
+                                    : "text-slate-900 border-slate-300"
+                                }`}
+                              >
+                                {isCvAr
+                                  ? "الخبرات المهنية العملية"
+                                  : "Professional Experience"}
+                              </h2>
+                              {editableCv.experience.map((exp, idx) => (
+                                <div key={idx} className="space-y-1.5">
+                                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                                    <div>
+                                      <span className="font-extrabold text-sm text-slate-900">
+                                        {exp.role}
+                                      </span>
+                                      <span className="text-xs sm:text-sm font-bold text-indigo-800">
+                                        {" "}
+                                        — {exp.company}
+                                      </span>
+                                      {exp.location && (
+                                        <span className="text-xs text-slate-600">
+                                          {" "}
+                                          ({exp.location})
+                                        </span>
+                                      )}
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-700">
+                                      {exp.period}
+                                    </span>
+                                  </div>
+
+                                  {exp.scopeStatement && (
+                                    <p className="text-xs italic text-slate-700 leading-relaxed">
+                                      {exp.scopeStatement}
+                                    </p>
+                                  )}
+
+                                  <ul
+                                    className={`list-disc ${
+                                      isCvAr ? "pr-5" : "pl-5"
+                                    } space-y-1 text-xs sm:text-[13px] text-slate-800 leading-relaxed`}
+                                  >
+                                    {exp.bullets.map((b, bIdx) => (
+                                      <li key={bIdx}>{b}</li>
+                                    ))}
+                                  </ul>
+
+                                  {exp.keyAchievement && (
+                                    <div
+                                      className={`text-xs font-semibold text-slate-900 bg-slate-100 px-3 py-1.5 rounded ${
+                                        isCvAr
+                                          ? "border-r-2 border-indigo-700"
+                                          : "border-l-2 border-indigo-700"
+                                      }`}
+                                    >
+                                      {isCvAr
+                                        ? `★ أبرز إنجاز قياسي: ${exp.keyAchievement}`
+                                        : `★ Key Impact: ${exp.keyAchievement}`}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* 5. KEY PROJECTS & STRATEGIC INITIATIVES */}
+                            {editableCv.projects && editableCv.projects.length > 0 && (
+                              <div className="space-y-3">
+                                <h2
+                                  className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
+                                    cvTemplate === "corporate"
+                                      ? "text-indigo-900 border-indigo-200"
+                                      : "text-slate-900 border-slate-300"
+                                  }`}
+                                >
+                                  {isCvAr
+                                    ? "أبرز المشاريع والمبادرات الاستراتيجية"
+                                    : "Selected Key Projects & Strategic Initiatives"}
+                                </h2>
+                                {editableCv.projects.map((proj, idx) => (
+                                  <div key={idx} className="space-y-1">
+                                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                                      <div>
+                                        <span className="font-bold text-xs sm:text-sm text-slate-900">
+                                          {proj.name}
+                                        </span>
+                                        <span className="text-xs text-indigo-700 font-semibold">
+                                          {" "}
+                                          | {proj.roleOrTech}
+                                        </span>
+                                      </div>
+                                      <span className="text-xs font-semibold text-slate-600">
+                                        {proj.period}
+                                      </span>
+                                    </div>
+                                    <ul
+                                      className={`list-disc ${
+                                        isCvAr ? "pr-5" : "pl-5"
+                                      } space-y-0.5 text-xs sm:text-[13px] text-slate-800 leading-relaxed`}
+                                    >
+                                      {proj.bullets.map((b, bIdx) => (
+                                        <li key={bIdx}>{b}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+
+                            {/* 6. EDUCATION & CREDENTIALS */}
+                            <div className="space-y-2">
+                              <h2
+                                className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
+                                  cvTemplate === "corporate"
+                                    ? "text-indigo-900 border-indigo-200"
+                                    : "text-slate-900 border-slate-300"
+                                }`}
+                              >
+                                {isCvAr
+                                  ? "المؤهلات العلمية والأكاديمية"
+                                  : "Education & Academic Credentials"}
+                              </h2>
+                              {editableCv.education.map((edu, idx) => (
+                                <div key={idx} className="space-y-0.5">
+                                  <div className="flex flex-wrap items-baseline justify-between text-xs sm:text-[13px]">
+                                    <div>
+                                      <span className="font-bold text-slate-900">
+                                        {edu.degree}
+                                      </span>
+                                      <span className="text-slate-700">
+                                        {" "}
+                                        — {edu.institution}
+                                      </span>
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-700">
+                                      {edu.year}
+                                    </span>
+                                  </div>
+                                  {edu.details && (
+                                    <p className="text-xs text-slate-600">{edu.details}</p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* 7. CERTIFICATIONS & LANGUAGES */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                              {editableCv.certifications &&
+                                editableCv.certifications.length > 0 && (
+                                  <div className="space-y-1.5">
+                                    <h2
+                                      className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
+                                        cvTemplate === "corporate"
+                                          ? "text-indigo-900 border-indigo-200"
+                                          : "text-slate-900 border-slate-300"
+                                      }`}
+                                    >
+                                      {isCvAr
+                                        ? "الشهادات المهنية والاعتمادات"
+                                        : "Certifications & Licenses"}
+                                    </h2>
+                                    <ul
+                                      className={`list-disc ${
+                                        isCvAr ? "pr-4" : "pl-4"
+                                      } space-y-0.5 text-xs text-slate-800`}
+                                    >
+                                      {editableCv.certifications.map((c, idx) => (
+                                        <li key={idx}>{c}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+
+                              {editableCv.languages && editableCv.languages.length > 0 && (
+                                <div className="space-y-1.5">
+                                  <h2
+                                    className={`text-xs font-extrabold uppercase tracking-widest pb-1 border-b ${
+                                      cvTemplate === "corporate"
+                                        ? "text-indigo-900 border-indigo-200"
+                                        : "text-slate-900 border-slate-300"
+                                    }`}
+                                  >
+                                    {isCvAr ? "اللغات" : "Languages"}
+                                  </h2>
+                                  <ul
+                                    className={`list-disc ${
+                                      isCvAr ? "pr-4" : "pl-4"
+                                    } space-y-0.5 text-xs text-slate-800`}
+                                  >
+                                    {editableCv.languages.map((lang, idx) => (
+                                      <li key={idx}>{lang}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                          <h3 className="text-xl sm:text-2xl font-black text-amber-100">
-                            {isAr
-                              ? `سيرتك الذاتية التنفيذية جاهزة (${result.optimizedScore}% Harvard ATS)`
-                              : `Your ${result.optimizedScore}% Harvard ATS Resume is Ready`}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-                            {isAr
-                              ? `ادفع ${siteSettings.singlePlanPriceEgp} ج.م فقط عبر فودافون كاش لتحميل الـ CV التنفيذي الكامل (PDF بحجم A4) مع 3 قوالب عالمية + خطاب التقديم + أسئلة الإنترفيو.`
-                              : "Unlock now via Vodafone Cash to download your full A4 Harvard ATS PDF."}
-                          </p>
-                          <button
-                            onClick={() => setShowPricingModal(true)}
-                            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/25 transition"
-                          >
-                            {isAr
-                              ? `افتح القفل الآن بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
-                              : `Unlock via Vodafone Cash (${siteSettings.singlePlanPriceEgp} EGP)`}
-                          </button>
                         </div>
+
+                        {/* Floating Luxury Paywall Overlay when Locked */}
+                        {!isUnlocked && (
+                          <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-[#050507] via-[#050507]/90 to-transparent flex items-center justify-center p-4">
+                            <div className="lux-centurion-card border-2 border-amber-400/80 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+                              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center mx-auto text-amber-300">
+                                <Crown className="w-6 h-6" />
+                              </div>
+                              <h3 className="text-xl sm:text-2xl font-black text-amber-100">
+                                {isAr
+                                  ? `سيرتك الذاتية التنفيذية جاهزة (${result.optimizedScore}% Harvard ATS)`
+                                  : `Your ${result.optimizedScore}% Harvard ATS Resume is Ready`}
+                              </h3>
+                              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                                {isAr
+                                  ? `ادفع ${siteSettings.singlePlanPriceEgp} ج.م فقط عبر فودافون كاش لتحميل الـ CV التنفيذي الكامل (PDF بحجم A4) مع 3 قوالب عالمية + خطاب التقديم + أسئلة الإنترفيو.`
+                                  : "Unlock now via Vodafone Cash to download your full A4 Harvard ATS PDF."}
+                              </p>
+                              <button
+                                onClick={() => setShowPricingModal(true)}
+                                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/25 transition"
+                              >
+                                {isAr
+                                  ? `افتح القفل الآن بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
+                                  : `Unlock via Vodafone Cash (${siteSettings.singlePlanPriceEgp} EGP)`}
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    );
+                  })()}
                 </div>
               )}
 
