@@ -53,6 +53,7 @@ export async function GET(req: NextRequest) {
     payments,
     users,
     supportMessages,
+    leads: db.leads || [],
     settings: db.settings
   });
 }

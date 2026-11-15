@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import { AnalysisResult } from "@/types/cv";
 import { verifyLicenseCode } from "@/lib/licenses";
-import { getUserByToken, readDb } from "@/lib/db";
+import { getUserByToken, readDb, writeDb } from "@/lib/db";
 
 const ANALYSIS_SCHEMA = {
   type: "object",
@@ -842,6 +842,30 @@ export async function POST(req: NextRequest) {
         uiLang,
         targetCvLang
       );
+      try {
+        const currentDb = readDb();
+        const phoneMatch = cvText.match(/(01[0125]\d{8}|\+?\d[\d\s-]{8,15}\d)/);
+        const emailMatch = cvText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+        const contactInfo =
+          sessionUser?.identifier ||
+          (phoneMatch ? phoneMatch[0].trim() : "") ||
+          (emailMatch ? emailMatch[0].trim() : "زائر بدون رقم مسجل");
+        currentDb.leads = currentDb.leads || [];
+        currentDb.leads.unshift({
+          id: "lead_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+          candidateName: rawFallback.rewrittenCv.fullName || sessionUser?.name || "مرشح محتمل",
+          contactPhoneOrEmail: contactInfo,
+          targetJobTitle: rawFallback.rewrittenCv.targetTitle || "وظيفة مستهدفة",
+          atsScore: rawFallback.atsScore,
+          optimizedScore: Math.max(95, Math.min(98, rawFallback.atsScore + 40)),
+          cvLang: targetCvLang,
+          createdAt: new Date().toISOString()
+        });
+        currentDb.leads = currentDb.leads.slice(0, 100);
+        writeDb(currentDb);
+      } catch {
+        // ignore lead logging error
+      }
       return NextResponse.json(
         applyServerSidePaywall(rawFallback, savedPlanType, uiLang, freeVisibleCount)
       );

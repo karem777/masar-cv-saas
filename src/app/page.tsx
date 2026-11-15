@@ -83,6 +83,17 @@ interface SupportMsg {
   isReadByAdmin?: boolean;
 }
 
+interface LeadAudit {
+  id: string;
+  candidateName: string;
+  contactPhoneOrEmail: string;
+  targetJobTitle: string;
+  atsScore: number;
+  optimizedScore: number;
+  cvLang: "ar" | "en";
+  createdAt: string;
+}
+
 export default function MasarSaaSPage() {
   const [uiLang, setUiLang] = useState<"ar" | "en">("ar");
   const isAr = uiLang === "ar";
@@ -108,6 +119,7 @@ export default function MasarSaaSPage() {
   const [adminPayments, setAdminPayments] = useState<AdminPayment[]>([]);
   const [adminUsers, setAdminUsers] = useState<LoggedInUser[]>([]);
   const [adminSupportMessages, setAdminSupportMessages] = useState<SupportMsg[]>([]);
+  const [adminLeads, setAdminLeads] = useState<LeadAudit[]>([]);
   const [adminSettingsForm, setAdminSettingsForm] =
     useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const [settingsSavedMsg, setSettingsSavedMsg] = useState<string>("");
@@ -191,6 +203,7 @@ export default function MasarSaaSPage() {
         setAdminPayments(data.payments || []);
         setAdminUsers(data.users || []);
         setAdminSupportMessages(data.supportMessages || []);
+        setAdminLeads(data.leads || []);
         if (data.settings) {
           setAdminSettingsForm((prev) =>
             prev.siteNameAr === DEFAULT_SITE_SETTINGS.siteNameAr
@@ -1809,6 +1822,97 @@ export default function MasarSaaSPage() {
                       </pre>
                     </div>
                   ))}
+                </div>
+
+                {/* Live Captured Leads Table (Direct WhatsApp Closing) */}
+                <div className="pt-5 border-t border-stone-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-extrabold text-emerald-400">
+                        🎯 العملاء المحتملين الذين فحصوا سيرهم الذاتية على الموقع ({adminLeads.length})
+                      </h4>
+                      <p className="text-xs text-stone-400">
+                        يتم استخراج اسم ورقم موبايل/إيميل أي زائر يفحص الـ CV تلقائياً لتتمكن من مراسلته على واتساب بضغطة زر وإتمام البيع!
+                      </p>
+                    </div>
+                  </div>
+
+                  {adminLeads.length === 0 ? (
+                    <div className="p-6 rounded-2xl bg-[#08080c] border border-stone-800 text-center text-xs text-stone-400">
+                      سيظهر هنا تلقائياً اسم ورقم موبايل أي زائر يقوم بفحص سيرته الذاتية على الموقع.
+                    </div>
+                  ) : (
+                    <div className="rounded-2xl bg-[#08080c] border border-amber-500/20 overflow-hidden">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-right text-xs">
+                          <thead className="bg-[#040406] text-amber-200 border-b border-stone-800">
+                            <tr>
+                              <th className="p-3.5">اسم المرشح</th>
+                              <th className="p-3.5">رقم الموبايل / الإيميل المستخرج</th>
+                              <th className="p-3.5">الوظيفة المستهدفة</th>
+                              <th className="p-3.5">درجة الـ ATS</th>
+                              <th className="p-3.5">التوقيت</th>
+                              <th className="p-3.5">إغلاق البيع عبر واتساب</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-stone-800/80">
+                            {adminLeads.map((ld) => {
+                              const digits = ld.contactPhoneOrEmail.replace(/\D/g, "");
+                              const waPhone =
+                                digits.length === 11 && digits.startsWith("01")
+                                  ? `2${digits}`
+                                  : digits.length >= 10
+                                  ? digits
+                                  : "";
+                              return (
+                                <tr key={ld.id} className="hover:bg-[#12121a]">
+                                  <td className="p-3.5 font-bold text-white">
+                                    {ld.candidateName}
+                                  </td>
+                                  <td className="p-3.5 font-mono text-amber-300" dir="ltr">
+                                    {ld.contactPhoneOrEmail}
+                                  </td>
+                                  <td className="p-3.5 text-stone-300">
+                                    {ld.targetJobTitle}
+                                  </td>
+                                  <td className="p-3.5">
+                                    <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">
+                                      {ld.atsScore}%
+                                    </span>{" "}
+                                    ➔{" "}
+                                    <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                                      {ld.optimizedScore}%
+                                    </span>
+                                  </td>
+                                  <td className="p-3.5 text-stone-400">
+                                    {new Date(ld.createdAt).toLocaleString("ar-EG")}
+                                  </td>
+                                  <td className="p-3.5">
+                                    {waPhone ? (
+                                      <a
+                                        href={`https://wa.me/${waPhone}?text=${encodeURIComponent(
+                                          `أهلاً بك أستاذ ${ld.candidateName} 👋، معك إدارة منصة مسارك (Masarak) 👑.\nلاحظنا قيامك بفحص سيرتك الذاتية لوظيفة (${ld.targetJobTitle}) وكانت النتيجة الحالية ${ld.atsScore}%، وقد تم تجهيز نسختك التنفيذية الكاملة بمعيار هارفارد بنسبة توافق ${ld.optimizedScore}% جاهزة للطباعة PDF.\n\nهل ترغب في تفعيل حسابك الآن بـ ${siteSettings.singlePlanPriceEgp} ج.م فقط عبر فودافون كاش (${siteSettings.vodafoneCashNumber}) وإرسال ملف الـ PDF لك فوراً؟`
+                                        )}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition"
+                                      >
+                                        <span>💬 راسله على واتساب لإتمام البيع</span>
+                                      </a>
+                                    ) : (
+                                      <span className="text-stone-500 text-[11px]">
+                                        إيميل فقط
+                                      </span>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -49,10 +49,22 @@ export interface SupportMessageRecord {
   isReadByAdmin: boolean;
 }
 
+export interface LeadAuditRecord {
+  id: string;
+  candidateName: string;
+  contactPhoneOrEmail: string;
+  targetJobTitle: string;
+  atsScore: number;
+  optimizedScore: number;
+  cvLang: "ar" | "en";
+  createdAt: string;
+}
+
 export interface DatabaseSchema {
   users: UserRecord[];
   payments: PaymentRequestRecord[];
   supportMessages: SupportMessageRecord[];
+  leads: LeadAuditRecord[];
   sessions: Record<string, string>; // token -> userId
   settings: SiteSettings;
 }
@@ -69,6 +81,7 @@ function ensureDb(): DatabaseSchema {
       users: [],
       payments: [],
       supportMessages: [],
+      leads: [],
       sessions: {},
       settings: { ...DEFAULT_SITE_SETTINGS }
     };
@@ -98,6 +111,7 @@ function ensureDb(): DatabaseSchema {
       users: parsed.users || [],
       payments: parsed.payments || [],
       supportMessages: parsed.supportMessages || [],
+      leads: parsed.leads || [],
       sessions: parsed.sessions || {},
       settings: mergedSettings
     };
@@ -106,6 +120,7 @@ function ensureDb(): DatabaseSchema {
       users: [],
       payments: [],
       supportMessages: [],
+      leads: [],
       sessions: {},
       settings: { ...DEFAULT_SITE_SETTINGS }
     };
