@@ -36,7 +36,8 @@ import {
   KeyRound,
   PlusCircle,
   LayoutTemplate,
-  Award
+  Award,
+  Crown
 } from "lucide-react";
 import {
   AnalysisResult,
@@ -684,28 +685,34 @@ export default function MasarSaaSPage() {
   });
 
   return (
-    <div dir={isAr ? "rtl" : "ltr"} className="min-h-screen flex flex-col">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+    <div
+      dir={isAr ? "rtl" : "ltr"}
+      className="min-h-screen flex flex-col bg-[#07070a] text-stone-100 relative overflow-x-hidden"
+    >
+      {/* Ambient Royal Gold Top Glow */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 h-96 bg-gradient-to-b from-amber-500/[0.07] via-amber-600/[0.02] to-transparent z-0" />
+
+      {/* Top Luxury Navbar */}
+      <header className="sticky top-0 z-30 border-b border-amber-500/20 bg-[#08080c]/85 backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
           {/* Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              <Sparkles className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-200 via-amber-400 to-yellow-600 flex items-center justify-center shadow-[0_0_25px_rgba(217,119,6,0.4)] ring-1 ring-amber-200/60">
+              <Crown className="w-5 h-5 text-neutral-950 stroke-[2.2]" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-tight text-white">
+              <div className="flex items-center gap-2.5">
+                <span className="font-black text-xl sm:text-2xl tracking-tight bg-gradient-to-l from-amber-100 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
                   {isAr ? siteSettings.siteNameAr : siteSettings.siteNameEn}
                 </span>
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
-                  {currentUser?.isAdmin ? "حساب المالك (Admin)" : "Harvard ATS Standard"}
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30 shadow-inner">
+                  {currentUser?.isAdmin ? "👑 الإدارة العليا (Owner)" : "✦ Harvard Executive"}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 hidden sm:block">
+              <p className="text-xs text-stone-400 hidden sm:block mt-0.5">
                 {isAr
-                  ? "مُحسِّن السيرة الذاتية التنفيذي لتخطي نظام الـ ATS"
-                  : "Executive Harvard ATS Resume Optimizer"}
+                  ? "المنصة التنفيذية الفاخرة لصياغة السيرة الذاتية وتخطي الـ ATS"
+                  : "Prestigious Harvard ATS Executive Resume Suite"}
               </p>
             </div>
           </div>
@@ -713,29 +720,29 @@ export default function MasarSaaSPage() {
           {/* Right Controls */}
           <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
             {currentUser?.isAdmin && (
-              <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-900 border border-indigo-500/40">
+              <div className="flex items-center gap-1 p-1 rounded-2xl bg-[#111118] border border-amber-500/35 shadow-inner">
                 <button
                   onClick={() => setAdminViewMode("admin")}
-                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3 py-1.5 rounded-lg transition ${
+                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-2 rounded-xl transition ${
                     adminViewMode === "admin"
-                      ? "bg-indigo-600 text-white shadow"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-md shadow-amber-500/20"
+                      : "text-stone-400 hover:text-amber-200"
                   }`}
                 >
                   <Shield className="w-3.5 h-3.5" />
                   <span>لوحة التحكم الشاملة</span>
                   {pendingPaymentsCount + unreadSupportCount > 0 && (
-                    <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold">
+                    <span className="px-1.5 py-0.2 rounded-full bg-rose-600 text-white text-[10px] font-extrabold">
                       {pendingPaymentsCount + unreadSupportCount}
                     </span>
                   )}
                 </button>
                 <button
                   onClick={() => setAdminViewMode("app")}
-                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3 py-1.5 rounded-lg transition ${
+                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-2 rounded-xl transition ${
                     adminViewMode === "app"
-                      ? "bg-indigo-600 text-white shadow"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-md shadow-amber-500/20"
+                      : "text-stone-400 hover:text-amber-200"
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
@@ -747,14 +754,14 @@ export default function MasarSaaSPage() {
             {!currentUser?.isAdmin && (
               <>
                 {isUnlocked ? (
-                  <span className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300">
+                  <span className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
                     <Unlock className="w-3.5 h-3.5" />
-                    <span>{isAr ? "الحساب مفعل ✓" : "Pro Active ✓"}</span>
+                    <span>{isAr ? "العضوية التنفيذية مفعلة ✓" : "Executive VIP Active ✓"}</span>
                   </span>
                 ) : currentUser?.paymentStatus === "pending" ? (
                   <button
                     onClick={() => setShowPricingModal(true)}
-                    className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-300"
+                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-300"
                   >
                     <Clock className="w-3.5 h-3.5 animate-pulse" />
                     <span>{isAr ? "التحويل قيد المراجعة" : "Payment Pending"}</span>
@@ -762,13 +769,13 @@ export default function MasarSaaSPage() {
                 ) : (
                   <button
                     onClick={() => setShowPricingModal(true)}
-                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 text-white shadow-lg shadow-rose-600/20 transition"
+                    className="flex items-center gap-1.5 text-xs font-black px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 shadow-[0_6px_25px_rgba(217,119,6,0.35)] transition"
                   >
                     <Smartphone className="w-3.5 h-3.5" />
                     <span>
                       {isAr
-                        ? `الاشتراك بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
-                        : `Subscribe (${siteSettings.singlePlanPriceEgp} EGP)`}
+                        ? `تفعيل العضوية بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
+                        : `VIP Unlock (${siteSettings.singlePlanPriceEgp} EGP)`}
                     </span>
                   </button>
                 )}
@@ -777,13 +784,13 @@ export default function MasarSaaSPage() {
 
             {currentUser ? (
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
-                  👤 {currentUser.identifier}
+                <span className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#12121a] border border-amber-500/25 text-amber-100">
+                  ✦ {currentUser.identifier}
                 </span>
                 <button
                   onClick={handleLogout}
                   title="تسجيل الخروج"
-                  className="p-2 rounded-xl bg-slate-900 hover:bg-rose-950/50 text-slate-400 hover:text-rose-300 border border-slate-800 transition"
+                  className="p-2.5 rounded-xl bg-[#12121a] hover:bg-rose-950/60 text-stone-400 hover:text-rose-300 border border-stone-800 transition"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -794,9 +801,9 @@ export default function MasarSaaSPage() {
                   setAuthMode("login");
                   setShowAuthModal(true);
                 }}
-                className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 transition"
+                className="flex items-center gap-1.5 text-xs font-bold px-4 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-amber-100 border border-amber-500/30 transition shadow-sm"
               >
-                <UserCheck className="w-3.5 h-3.5 text-indigo-400" />
+                <UserCheck className="w-3.5 h-3.5 text-amber-400" />
                 <span>{isAr ? "تسجيل دخول / حساب جديد" : "Login / Sign Up"}</span>
               </button>
             )}
@@ -806,9 +813,9 @@ export default function MasarSaaSPage() {
                 onClick={() =>
                   supportSectionRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="flex items-center gap-1 text-xs font-medium px-2.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition"
+                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-stone-300 border border-stone-800 hover:border-amber-500/30 transition"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
                 <span className="hidden md:inline">
                   {isAr ? "خدمة العملاء" : "Support"}
                 </span>
@@ -818,9 +825,9 @@ export default function MasarSaaSPage() {
             {!currentUser?.isAdmin && (
               <button
                 onClick={() => setUiLang(isAr ? "en" : "ar")}
-                className="flex items-center gap-1 text-xs font-medium px-2.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition"
+                className="flex items-center gap-1 text-xs font-semibold px-3 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-stone-300 border border-stone-800 hover:border-amber-500/30 transition"
               >
-                <Globe className="w-3.5 h-3.5 text-sky-400" />
+                <Globe className="w-3.5 h-3.5 text-amber-400" />
                 <span>{isAr ? "EN" : "عربي"}</span>
               </button>
             )}
@@ -832,56 +839,56 @@ export default function MasarSaaSPage() {
       {/* TOTAL-CONTROL ADMIN DASHBOARD (When logged in as karemaboelnsr9@gmail.com) */}
       {/* ===================================================================== */}
       {currentUser?.isAdmin && adminViewMode === "admin" ? (
-        <main dir="rtl" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-6">
+        <main dir="rtl" className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-6">
           {/* Live KPI Summary Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-4 space-y-1">
-              <span className="text-[11px] text-slate-400">إجمالي الأرباح المؤكدة</span>
+            <div className="rounded-2xl bg-[#101017]/90 border border-amber-500/20 p-4 space-y-1 shadow-lg">
+              <span className="text-[11px] text-stone-400">إجمالي الأرباح المؤكدة</span>
               <div className="text-2xl font-extrabold text-emerald-400">
                 {approvedRevenueEgp} ج.م
               </div>
             </div>
-            <div className="rounded-2xl bg-slate-900 border border-amber-500/30 p-4 space-y-1">
+            <div className="rounded-2xl bg-[#101017]/90 border border-amber-400/40 p-4 space-y-1 shadow-lg">
               <span className="text-[11px] text-amber-300">تحويلات بانتظار التفعيل</span>
               <div className="text-2xl font-extrabold text-amber-400">
                 {pendingPaymentsCount}
               </div>
             </div>
-            <div className="rounded-2xl bg-slate-900 border border-indigo-500/30 p-4 space-y-1">
-              <span className="text-[11px] text-indigo-300">مشتركين مفعلين حالياً</span>
-              <div className="text-2xl font-extrabold text-indigo-400">
+            <div className="rounded-2xl bg-[#101017]/90 border border-amber-500/25 p-4 space-y-1 shadow-lg">
+              <span className="text-[11px] text-amber-200">مشتركين مفعلين حالياً</span>
+              <div className="text-2xl font-extrabold text-amber-300">
                 {activePaidUsersCount}
               </div>
             </div>
-            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-4 space-y-1">
-              <span className="text-[11px] text-slate-400">إجمالي المسجلين</span>
+            <div className="rounded-2xl bg-[#101017]/90 border border-stone-800 p-4 space-y-1 shadow-lg">
+              <span className="text-[11px] text-stone-400">إجمالي المسجلين</span>
               <div className="text-2xl font-extrabold text-white">
                 {adminUsers.length}
               </div>
             </div>
-            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-4 space-y-1">
-              <span className="text-[11px] text-slate-400">رسائل دعم غير مقروءة</span>
-              <div className="text-2xl font-extrabold text-sky-400">
+            <div className="rounded-2xl bg-[#101017]/90 border border-stone-800 p-4 space-y-1 shadow-lg">
+              <span className="text-[11px] text-stone-400">رسائل دعم غير مقروءة</span>
+              <div className="text-2xl font-extrabold text-amber-400">
                 {unreadSupportCount}
               </div>
             </div>
           </div>
 
           {/* Admin Navigation Tabs */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
             <div className="flex items-center gap-2 overflow-x-auto pb-1">
               <button
                 onClick={() => setAdminTab("payments")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                   adminTab === "payments"
-                    ? "bg-rose-600 text-white shadow-lg shadow-rose-600/25"
-                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                    : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                 }`}
               >
                 <Smartphone className="w-4 h-4" />
                 <span>تحويلات فودافون كاش ({adminPayments.length})</span>
                 {pendingPaymentsCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold">
+                  <span className="px-2 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-extrabold">
                     {pendingPaymentsCount}
                   </span>
                 )}
@@ -889,10 +896,10 @@ export default function MasarSaaSPage() {
 
               <button
                 onClick={() => setAdminTab("users")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                   adminTab === "users"
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                    : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                 }`}
               >
                 <Users className="w-4 h-4" />
@@ -901,10 +908,10 @@ export default function MasarSaaSPage() {
 
               <button
                 onClick={() => setAdminTab("settings")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                   adminTab === "settings"
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                    : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                 }`}
               >
                 <Settings className="w-4 h-4" />
@@ -913,16 +920,16 @@ export default function MasarSaaSPage() {
 
               <button
                 onClick={() => setAdminTab("support")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition ${
                   adminTab === "support"
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                    : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                    : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                 }`}
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>خدمة العملاء ({adminThreads.length})</span>
                 {unreadSupportCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-400 text-slate-950 text-[10px] font-extrabold">
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-neutral-950 text-[10px] font-extrabold">
                     {unreadSupportCount}
                   </span>
                 )}
@@ -931,7 +938,7 @@ export default function MasarSaaSPage() {
 
             <button
               onClick={fetchAdminData}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-200 transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#111118] hover:bg-[#181822] border border-amber-500/25 text-xs font-bold text-amber-200 transition"
             >
               <RefreshCw
                 className={`w-3.5 h-3.5 ${isRefreshingAdmin ? "animate-spin" : ""}`}
@@ -944,7 +951,7 @@ export default function MasarSaaSPage() {
           {adminTab === "payments" && (
             <div className="space-y-4">
               {adminPayments.length === 0 ? (
-                <div className="rounded-2xl bg-slate-900 border border-slate-800 p-12 text-center text-slate-400 text-sm">
+                <div className="rounded-2xl bg-[#101017] border border-amber-500/15 p-12 text-center text-stone-400 text-sm">
                   لا توجد طلبات تحويل فودافون كاش حتى الآن. عندما يقوم أي عميل برفع صورة التحويل ستظهر هنا فوراً.
                 </div>
               ) : (
@@ -952,9 +959,9 @@ export default function MasarSaaSPage() {
                   {adminPayments.map((pay) => (
                     <div
                       key={pay.id}
-                      className={`rounded-2xl bg-slate-900 border p-5 space-y-4 ${
+                      className={`rounded-2xl bg-[#101017] border p-5 space-y-4 ${
                         pay.status === "pending"
-                          ? "border-amber-500/60 shadow-lg shadow-amber-500/5"
+                          ? "border-amber-400/60 shadow-lg shadow-amber-500/10"
                           : pay.status === "approved"
                           ? "border-emerald-500/40"
                           : "border-rose-500/30 opacity-75"
@@ -962,11 +969,11 @@ export default function MasarSaaSPage() {
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <span className="text-xs text-slate-400 block">حساب العميل:</span>
+                          <span className="text-xs text-stone-400 block">حساب العميل:</span>
                           <h3 className="font-bold text-base text-white">
                             {pay.userName} ({pay.userIdentifier})
                           </h3>
-                          <span className="text-[11px] text-slate-500">
+                          <span className="text-[11px] text-stone-500">
                             {new Date(pay.createdAt).toLocaleString("ar-EG")}
                           </span>
                         </div>
@@ -992,36 +999,36 @@ export default function MasarSaaSPage() {
                               handleAdminPaymentAction(pay.id, "delete_payment")
                             }
                             title="حذف سجل التحويل"
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/50 text-slate-400 hover:text-rose-300"
+                            className="p-1.5 rounded-lg bg-stone-900 hover:bg-rose-900/50 text-stone-400 hover:text-rose-300"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                      <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-[#08080c] border border-stone-800 text-xs">
                         <div>
-                          <span className="text-slate-400 block">المبلغ والباقة:</span>
-                          <strong className="text-emerald-400 font-bold">
+                          <span className="text-stone-400 block">المبلغ والباقة:</span>
+                          <strong className="text-amber-300 font-bold">
                             {pay.amountEgp} ج.م ({pay.plan === "pro" ? "شهري Pro" : "CV واحد"})
                           </strong>
                         </div>
                         <div>
-                          <span className="text-slate-400 block">الرقم المحول منه:</span>
+                          <span className="text-stone-400 block">الرقم المحول منه:</span>
                           <strong className="text-white font-mono">{pay.senderPhone}</strong>
                         </div>
                         <div>
-                          <span className="text-slate-400 block">المحفظة باسم:</span>
+                          <span className="text-stone-400 block">المحفظة باسم:</span>
                           <strong className="text-white">{pay.walletOwnerName}</strong>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between text-xs text-slate-400">
+                        <div className="flex items-center justify-between text-xs text-stone-400">
                           <span>صورة إيصال التحويل المرفقة:</span>
                           <button
                             onClick={() => setPreviewImage(pay.screenshotDataUrl)}
-                            className="flex items-center gap-1 text-indigo-400 hover:underline font-bold"
+                            className="flex items-center gap-1 text-amber-400 hover:underline font-bold"
                           >
                             <Eye className="w-3.5 h-3.5" />
                             <span>تكبير الصورة</span>
@@ -1029,7 +1036,7 @@ export default function MasarSaaSPage() {
                         </div>
                         <div
                           onClick={() => setPreviewImage(pay.screenshotDataUrl)}
-                          className="h-44 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden cursor-pointer flex items-center justify-center"
+                          className="h-44 rounded-xl bg-[#08080c] border border-stone-800 overflow-hidden cursor-pointer flex items-center justify-center"
                         >
                           <img
                             src={pay.screenshotDataUrl}
@@ -1073,9 +1080,9 @@ export default function MasarSaaSPage() {
               {/* Manual Add / Activate User Form */}
               <form
                 onSubmit={handleAdminManualCreateUser}
-                className="rounded-2xl bg-slate-900 border border-indigo-500/30 p-5 space-y-4"
+                className="rounded-2xl bg-[#101017] border border-amber-500/30 p-5 space-y-4"
               >
-                <h3 className="font-bold text-sm text-indigo-300 flex items-center gap-2">
+                <h3 className="font-bold text-sm text-amber-300 flex items-center gap-2">
                   <PlusCircle className="w-4 h-4" />
                   <span>إضافة مستخدم جديد أو تفعيل اشتراك لأي إيميل/رقم يدوياً:</span>
                 </h3>
@@ -1087,14 +1094,14 @@ export default function MasarSaaSPage() {
                     placeholder="الإيميل أو رقم الموبايل"
                     required
                     dir="ltr"
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white font-mono"
+                    className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white font-mono"
                   />
                   <input
                     type="text"
                     value={manualUserName}
                     onChange={(e) => setManualUserName(e.target.value)}
                     placeholder="اسم المشترك"
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                    className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                   />
                   <input
                     type="text"
@@ -1102,14 +1109,14 @@ export default function MasarSaaSPage() {
                     onChange={(e) => setManualUserPassword(e.target.value)}
                     placeholder="كلمة المرور للحساب"
                     required
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                    className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                   />
                   <select
                     value={manualUserPlan}
                     onChange={(e) =>
                       setManualUserPlan(e.target.value as "free" | "single" | "pro")
                     }
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                    className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                   >
                     <option value="pro">باقة الشهر الكامل (Pro)</option>
                     <option value="single">باقة الـ CV الواحد</option>
@@ -1117,7 +1124,7 @@ export default function MasarSaaSPage() {
                   </select>
                   <button
                     type="submit"
-                    className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition"
+                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-extrabold text-xs transition"
                   >
                     حفظ وتفعيل الحساب
                   </button>
@@ -1134,15 +1141,15 @@ export default function MasarSaaSPage() {
                   value={userSearchQuery}
                   onChange={(e) => setUserSearchQuery(e.target.value)}
                   placeholder="ابحث عن أي مستخدم بالإيميل أو رقم الموبايل أو الاسم..."
-                  className="max-w-md w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs sm:text-sm text-white"
+                  className="max-w-md w-full px-4 py-2.5 rounded-xl bg-[#101017] border border-amber-500/25 text-xs sm:text-sm text-white"
                 />
               </div>
 
               {/* Users Table */}
-              <div className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden">
+              <div className="rounded-2xl bg-[#101017] border border-amber-500/20 overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-right text-xs sm:text-sm">
-                    <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                    <thead className="bg-[#08080c] text-amber-200/80 border-b border-amber-500/20">
                       <tr>
                         <th className="p-4">المستخدم</th>
                         <th className="p-4">الإيميل / رقم الموبايل</th>
@@ -1151,11 +1158,11 @@ export default function MasarSaaSPage() {
                         <th className="p-4">إدارة الحساب</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800">
+                    <tbody className="divide-y divide-stone-800/80">
                       {filteredAdminUsers.map((u) => (
                         <tr
                           key={u.id}
-                          className={`hover:bg-slate-950/40 ${
+                          className={`hover:bg-[#14141d] ${
                             u.isBanned ? "opacity-50 bg-rose-950/20" : ""
                           }`}
                         >
@@ -1167,15 +1174,15 @@ export default function MasarSaaSPage() {
                               </span>
                             )}
                           </td>
-                          <td className="p-4 font-mono text-indigo-300">{u.identifier}</td>
+                          <td className="p-4 font-mono text-amber-300">{u.identifier}</td>
                           <td className="p-4">
                             <span
                               className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                                 u.plan === "pro"
                                   ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
                                   : u.plan === "single"
-                                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
-                                  : "bg-slate-800 text-slate-400"
+                                  ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                                  : "bg-stone-800 text-stone-400"
                               }`}
                             >
                               {u.plan === "pro"
@@ -1195,7 +1202,7 @@ export default function MasarSaaSPage() {
                               </button>
                               <button
                                 onClick={() => handleAdminSetUserPlan(u.id, "single")}
-                                className="px-2.5 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-bold"
+                                className="px-2.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold"
                               >
                                 تفعيل CV واحد
                               </button>
@@ -1215,7 +1222,7 @@ export default function MasarSaaSPage() {
                                 <button
                                   onClick={() => handleAdminResetPassword(u.id)}
                                   title="تغيير كلمة مرور المستخدم"
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+                                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300"
                                 >
                                   <KeyRound className="w-3.5 h-3.5" />
                                 </button>
@@ -1249,20 +1256,20 @@ export default function MasarSaaSPage() {
           {adminTab === "settings" && (
             <form
               onSubmit={handleAdminSaveSettings}
-              className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-6"
+              className="rounded-2xl bg-[#101017] border border-amber-500/20 p-6 space-y-6"
             >
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center justify-between border-b border-stone-800 pb-4">
                 <div>
-                  <h3 className="text-lg font-extrabold text-white">
+                  <h3 className="text-lg font-extrabold text-amber-200">
                     إعدادات الموقع والأسعار والدفع (تحكم كامل)
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-stone-400">
                     أي تعديل هنا يظهر فوراً لجميع زوار ومستخدمي الموقع بدون الحاجة لتعديل الكود
                   </p>
                 </div>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-600/20 transition"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-500/20 transition"
                 >
                   حفظ جميع الإعدادات
                 </button>
@@ -1276,12 +1283,12 @@ export default function MasarSaaSPage() {
 
               {/* Section 1: Vodafone Cash & Pricing */}
               <div className="space-y-4">
-                <h4 className="text-sm font-bold text-rose-400">
+                <h4 className="text-sm font-bold text-amber-400">
                   1. إعدادات فودافون كاش وأسعار الباقات
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       رقم محفظة فودافون كاش للدفع:
                     </label>
                     <input
@@ -1294,12 +1301,12 @@ export default function MasarSaaSPage() {
                         })
                       }
                       dir="ltr"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white font-mono"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       سعر باقة الـ CV الواحد (ج.م):
                     </label>
                     <input
@@ -1311,12 +1318,12 @@ export default function MasarSaaSPage() {
                           singlePlanPriceEgp: Number(e.target.value)
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       سعر باقة الشهر الكامل Pro (ج.م):
                     </label>
                     <input
@@ -1328,14 +1335,14 @@ export default function MasarSaaSPage() {
                           proPlanPriceEgp: Number(e.target.value)
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       اسم باقة الـ CV الواحد:
                     </label>
                     <input
@@ -1347,11 +1354,11 @@ export default function MasarSaaSPage() {
                           singlePlanNameAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       اسم باقة الشهر الكامل (Pro):
                     </label>
                     <input
@@ -1363,20 +1370,20 @@ export default function MasarSaaSPage() {
                           proPlanNameAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 2: Site Branding & Hero Text */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-sm font-bold text-indigo-400">
+              <div className="space-y-4 pt-4 border-t border-stone-800">
+                <h4 className="text-sm font-bold text-amber-400">
                   2. نصوص وعناوين الموقع الرئيسية
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       اسم الموقع (بالعربي):
                     </label>
                     <input
@@ -1388,11 +1395,11 @@ export default function MasarSaaSPage() {
                           siteNameAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       شريط التنبيه العلوي:
                     </label>
                     <input
@@ -1404,11 +1411,11 @@ export default function MasarSaaSPage() {
                           announcementAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       العنوان الرئيسي (السطر الأول):
                     </label>
                     <input
@@ -1420,11 +1427,11 @@ export default function MasarSaaSPage() {
                           heroTitleAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       العنوان الملون (السطر الثاني):
                     </label>
                     <input
@@ -1436,20 +1443,20 @@ export default function MasarSaaSPage() {
                           heroHighlightAr: e.target.value
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 3: Paywall Strictness & AI Key */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
+              <div className="space-y-4 pt-4 border-t border-stone-800">
                 <h4 className="text-sm font-bold text-emerald-400">
                   3. التحكم في القفل (Paywall) ومفتاح الذكاء الاصطناعي
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       عدد الكلمات المفتاحية الناقصة الظاهرة مجاناً للزائر:
                     </label>
                     <input
@@ -1463,12 +1470,12 @@ export default function MasarSaaSPage() {
                           freeVisibleMissingKeywords: Number(e.target.value)
                         })
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white"
                     />
                   </div>
 
                   <div className="sm:col-span-2 space-y-1.5">
-                    <label className="text-xs text-slate-300 font-bold">
+                    <label className="text-xs text-stone-300 font-bold">
                       مفتاح Gemini API Key (اختياري — لتفعيل Gemini 3.8 Flash على السيرفر):
                     </label>
                     <input
@@ -1482,13 +1489,13 @@ export default function MasarSaaSPage() {
                       }
                       placeholder="AIzaSy..."
                       dir="ltr"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs text-white font-mono"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-6 pt-2">
-                  <label className="flex items-center gap-2 text-xs font-bold text-slate-200 cursor-pointer">
+                  <label className="flex items-center gap-2 text-xs font-bold text-stone-200 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={adminSettingsForm.freeAllUsersPromo}
@@ -1510,12 +1517,12 @@ export default function MasarSaaSPage() {
           {/* ADMIN TAB 4: CUSTOMER SUPPORT */}
           {adminTab === "support" && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="rounded-2xl bg-slate-900 border border-slate-800 p-4 space-y-3 max-h-[550px] overflow-y-auto">
-                <h3 className="font-bold text-sm text-white px-2">
+              <div className="rounded-2xl bg-[#101017] border border-amber-500/20 p-4 space-y-3 max-h-[550px] overflow-y-auto">
+                <h3 className="font-bold text-sm text-amber-200 px-2">
                   محادثات خدمة العملاء ({adminThreads.length})
                 </h3>
                 {adminThreads.length === 0 ? (
-                  <p className="text-xs text-slate-400 p-4 text-center">
+                  <p className="text-xs text-stone-400 p-4 text-center">
                     لا توجد رسائل خدمة عملاء حتى الآن.
                   </p>
                 ) : (
@@ -1525,15 +1532,15 @@ export default function MasarSaaSPage() {
                       onClick={() => setSelectedThreadId(th.threadUserId)}
                       className={`w-full text-right p-3.5 rounded-xl border transition space-y-1 cursor-pointer ${
                         selectedThreadId === th.threadUserId
-                          ? "bg-indigo-600/20 border-indigo-500"
-                          : "bg-slate-950 border-slate-800 hover:border-slate-700"
+                          ? "bg-amber-500/15 border-amber-400"
+                          : "bg-[#08080c] border-stone-800 hover:border-amber-500/30"
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs text-white">{th.userName}</span>
                         <div className="flex items-center gap-1.5">
                           {th.unreadCount > 0 && (
-                            <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-extrabold">
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-neutral-950 text-[10px] font-extrabold">
                               {th.unreadCount} جديد
                             </span>
                           )}
@@ -1542,24 +1549,24 @@ export default function MasarSaaSPage() {
                               e.stopPropagation();
                               handleAdminDeleteThread(th.threadUserId);
                             }}
-                            className="text-slate-500 hover:text-rose-400"
+                            className="text-stone-500 hover:text-rose-400"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
-                      <span className="text-[11px] text-indigo-300 block font-mono">
+                      <span className="text-[11px] text-amber-300 block font-mono">
                         {th.userIdentifier}
                       </span>
-                      <p className="text-xs text-slate-400 truncate">{th.lastMessage}</p>
+                      <p className="text-xs text-stone-400 truncate">{th.lastMessage}</p>
                     </div>
                   ))
                 )}
               </div>
 
-              <div className="lg:col-span-2 rounded-2xl bg-slate-900 border border-slate-800 p-5 flex flex-col h-[550px]">
+              <div className="lg:col-span-2 rounded-2xl bg-[#101017] border border-amber-500/20 p-5 flex flex-col h-[550px]">
                 {!selectedThreadId ? (
-                  <div className="flex-1 flex items-center justify-center text-slate-400 text-sm">
+                  <div className="flex-1 flex items-center justify-center text-stone-400 text-sm">
                     اختر محادثة من القائمة على اليمين لعرض الرسائل والرد على العميل
                   </div>
                 ) : (
@@ -1570,11 +1577,11 @@ export default function MasarSaaSPage() {
                     if (!activeThread) return null;
                     return (
                       <>
-                        <div className="border-b border-slate-800 pb-3 mb-4">
+                        <div className="border-b border-stone-800 pb-3 mb-4">
                           <h4 className="font-bold text-sm text-white">
                             {activeThread.userName}
                           </h4>
-                          <span className="text-xs text-indigo-300 font-mono">
+                          <span className="text-xs text-amber-300 font-mono">
                             {activeThread.userIdentifier}
                           </span>
                         </div>
@@ -1585,11 +1592,11 @@ export default function MasarSaaSPage() {
                               key={m.id}
                               className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
                                 m.sender === "admin"
-                                  ? "bg-indigo-600 text-white mr-auto rounded-tl-none"
-                                  : "bg-slate-950 border border-slate-800 text-slate-200 ml-auto rounded-tr-none"
+                                  ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950 font-semibold mr-auto rounded-tl-none"
+                                  : "bg-[#08080c] border border-stone-800 text-stone-200 ml-auto rounded-tr-none"
                               }`}
                             >
-                              <span className="block text-[10px] opacity-70 mb-1 font-bold">
+                              <span className="block text-[10px] opacity-75 mb-1 font-bold">
                                 {m.sender === "admin"
                                   ? "أنت (خدمة العملاء)"
                                   : `${m.userName} (${m.userIdentifier})`}
@@ -1601,18 +1608,18 @@ export default function MasarSaaSPage() {
 
                         <form
                           onSubmit={handleAdminSendReply}
-                          className="pt-4 mt-3 border-t border-slate-800 flex gap-2"
+                          className="pt-4 mt-3 border-t border-stone-800 flex gap-2"
                         >
                           <input
                             type="text"
                             value={replyText}
                             onChange={(e) => setReplyText(e.target.value)}
                             placeholder="اكتب ردك للعميل هنا..."
-                            className="flex-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs sm:text-sm text-white"
+                            className="flex-1 px-4 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-white"
                           />
                           <button
                             type="submit"
-                            className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5"
+                            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 font-extrabold text-xs flex items-center gap-1.5"
                           >
                             <Send className="w-3.5 h-3.5" />
                             <span>إرسال الرد</span>
@@ -1629,12 +1636,12 @@ export default function MasarSaaSPage() {
           {previewImage && (
             <div
               onClick={() => setPreviewImage(null)}
-              className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
+              className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
             >
               <img
                 src={previewImage}
                 alt="Full receipt"
-                className="max-h-[90vh] max-w-[90vw] rounded-2xl border border-slate-700 shadow-2xl"
+                className="max-h-[90vh] max-w-[90vw] rounded-2xl border border-amber-500/40 shadow-2xl"
               />
             </div>
           )}
@@ -1643,11 +1650,11 @@ export default function MasarSaaSPage() {
         /* ===================================================================== */
         /* NORMAL USER CV SAAS VIEW                                              */
         /* ===================================================================== */
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
+        <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10 space-y-12">
           {/* Hero Section */}
-          <section className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs font-medium">
-              <Zap className="w-3.5 h-3.5 text-rose-400" />
+          <section className="text-center max-w-4xl mx-auto space-y-5">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs font-semibold shadow-[0_0_25px_rgba(217,119,6,0.15)]">
+              <Crown className="w-3.5 h-3.5 text-amber-400" />
               <span>
                 {isAr
                   ? siteSettings.announcementAr
@@ -1655,25 +1662,25 @@ export default function MasarSaaSPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-stone-100 leading-[1.2]">
               {isAr ? (
                 <>
                   {siteSettings.heroTitleAr}{" "}
-                  <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-sky-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-l from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-sm">
                     {siteSettings.heroHighlightAr}
                   </span>
                 </>
               ) : (
                 <>
                   See Why ATS Rejects Your CV &{" "}
-                  <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-sky-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
                     Download a Harvard Executive 96%-Match Resume
                   </span>
                 </>
               )}
             </h1>
 
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            <p className="text-stone-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               {isAr
                 ? siteSettings.heroSubtitleAr
                 : "Scan your current CV score for free in 10 seconds, and get a full-page Harvard Executive ATS-optimized PDF resume."}
@@ -1681,14 +1688,14 @@ export default function MasarSaaSPage() {
 
             {/* Quick Sample Loader Pills */}
             <div className="pt-2 flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-xs text-slate-400">
-                {isAr ? "جرب بمثال جاهز بضغطة واحدة:" : "Try a 1-click sample:"}
+              <span className="text-xs text-stone-400 font-semibold">
+                {isAr ? "✦ جرب بمثال تنفيذي جاهز بضغطة واحدة:" : "✦ Try a 1-click executive sample:"}
               </span>
               {SAMPLE_PRESETS.map((preset) => (
                 <button
                   key={preset.id}
                   onClick={() => handleLoadPreset(preset.id)}
-                  className="text-xs px-3 py-1.5 rounded-full bg-slate-900 hover:bg-indigo-950/60 text-slate-300 hover:text-indigo-200 border border-slate-800 hover:border-indigo-500/40 transition"
+                  className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-[#111118] hover:bg-amber-500/15 text-stone-300 hover:text-amber-200 border border-amber-500/20 hover:border-amber-400/50 transition shadow-sm"
                 >
                   {isAr ? preset.labelAr : preset.labelEn}
                 </button>
@@ -1698,17 +1705,17 @@ export default function MasarSaaSPage() {
 
           {/* Dual Input Workspace */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-2xl bg-slate-900/70 border border-slate-800/90 p-5 flex flex-col space-y-4 shadow-xl">
+            <div className="rounded-3xl bg-[#101017]/90 backdrop-blur-xl border border-amber-500/20 hover:border-amber-500/35 p-6 flex flex-col space-y-4 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)] transition">
               <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-                    <FileText className="w-4 h-4" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="font-bold text-sm sm:text-base text-white">
+                    <h2 className="font-extrabold text-sm sm:text-base text-stone-100">
                       {isAr ? "1. سيرتك الذاتية الحالية (CV)" : "1. Your Current Resume / CV"}
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-stone-400">
                       {isAr
                         ? "ارفع ملف PDF أو الصق نص الـ CV هنا"
                         : "Upload a PDF file or paste your resume text below"}
@@ -1727,7 +1734,7 @@ export default function MasarSaaSPage() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition"
+                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border border-amber-400/30 transition"
                   >
                     <Upload className="w-3.5 h-3.5" />
                     <span>{isAr ? "رفع ملف PDF / نص" : "Upload PDF / TXT"}</span>
@@ -1736,7 +1743,7 @@ export default function MasarSaaSPage() {
               </div>
 
               {pdfFileName && (
-                <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs">
+                <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs">
                   <span>
                     {isAr ? `تم إرفاق الملف: ${pdfFileName}` : `Attached file: ${pdfFileName}`}
                   </span>
@@ -1757,31 +1764,31 @@ export default function MasarSaaSPage() {
                 onChange={(e) => setCvText(e.target.value)}
                 rows={9}
                 dir="auto"
-                className="w-full rounded-xl bg-slate-950/90 border border-slate-800 focus:border-indigo-500 focus:outline-none p-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed resize-y font-mono"
+                className="w-full rounded-2xl bg-[#08080c] border border-stone-800/90 focus:border-amber-400/70 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono shadow-inner"
               />
             </div>
 
-            <div className="rounded-2xl bg-slate-900/70 border border-slate-800/90 p-5 flex flex-col space-y-4 shadow-xl">
+            <div className="rounded-3xl bg-[#101017]/90 backdrop-blur-xl border border-amber-500/20 hover:border-amber-500/35 p-6 flex flex-col space-y-4 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)] transition">
               <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-violet-500/15 border border-violet-500/30 flex items-center justify-center text-violet-400">
-                    <Briefcase className="w-4 h-4" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-inner">
+                    <Briefcase className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="font-bold text-sm sm:text-base text-white">
+                    <h2 className="font-extrabold text-sm sm:text-base text-stone-100">
                       {isAr
                         ? "2. وصف الوظيفة المستهدفة (Job Description)"
                         : "2. Target Job Description"}
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-stone-400">
                       {isAr
                         ? "انسخ تفاصيل ومتطلبات الوظيفة من LinkedIn أو Wuzzuf"
                         : "Paste the job requirements from LinkedIn, Wuzzuf, or Indeed"}
                     </p>
                   </div>
                 </div>
-                <span className="text-[11px] text-slate-400 px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800">
-                  {isAr ? "معيار هارفارد ATS" : "Harvard ATS Standard"}
+                <span className="text-[11px] font-bold text-amber-300 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25">
+                  {isAr ? "✦ معيار هارفارد ATS" : "✦ Harvard ATS Standard"}
                 </span>
               </div>
 
@@ -1790,23 +1797,23 @@ export default function MasarSaaSPage() {
                 onChange={(e) => setJobDescription(e.target.value)}
                 rows={9}
                 dir="auto"
-                className="w-full rounded-xl bg-slate-950/90 border border-slate-800 focus:border-violet-500 focus:outline-none p-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed resize-y font-mono"
+                className="w-full rounded-2xl bg-[#08080c] border border-stone-800/90 focus:border-amber-400/70 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono shadow-inner"
               />
             </div>
           </section>
 
           {errorMsg && (
-            <div className="max-w-2xl mx-auto p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm text-center">
+            <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm text-center">
               {errorMsg}
             </div>
           )}
 
-          {/* Primary Analyze CTA */}
+          {/* Primary Luxury Analyze CTA */}
           <div className="flex flex-col items-center justify-center space-y-2">
             <button
               onClick={() => runAnalysis()}
               disabled={isAnalyzing}
-              className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base sm:text-lg text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 hover:from-indigo-500 hover:to-violet-500 shadow-xl shadow-indigo-600/25 disabled:opacity-60 transition-all cursor-pointer"
+              className="group relative inline-flex items-center justify-center gap-3 px-10 py-4.5 rounded-2xl font-black text-base sm:text-lg text-neutral-950 bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 shadow-[0_10px_40px_rgba(217,119,6,0.4)] ring-1 ring-amber-200/60 disabled:opacity-60 transition-all cursor-pointer"
             >
               <Sparkles className={`w-5 h-5 ${isAnalyzing ? "animate-spin" : ""}`} />
               <span>
@@ -1815,7 +1822,7 @@ export default function MasarSaaSPage() {
                     ? "جاري فحص الـ ATS وبناء السيرة الذاتية التنفيذية..."
                     : "Scanning ATS & Building Harvard Executive CV..."
                   : isAr
-                  ? "افحص سيرتك الذاتية وابنِ النسخة الاحترافية الآن"
+                  ? "افحص سيرتك الذاتية وابنِ النسخة التنفيذية الآن"
                   : "Scan My Resume & Build Harvard Executive CV"}
               </span>
             </button>
@@ -1824,17 +1831,17 @@ export default function MasarSaaSPage() {
           {/* Results Dashboard */}
           {result && editableCv && (
             <section ref={resultsRef} className="pt-4 space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-amber-500/20">
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
                   <button
                     onClick={() => setActiveTab("ats-report")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
                       activeTab === "ats-report"
-                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
-                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                    <AlertTriangle className="w-4 h-4" />
                     <span>
                       {isAr
                         ? `1. تقرير الفحص (${result.atsScore}%)`
@@ -1844,47 +1851,47 @@ export default function MasarSaaSPage() {
 
                   <button
                     onClick={() => setActiveTab("rewritten-cv")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
                       activeTab === "rewritten-cv"
-                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
-                    <Award className="w-4 h-4 text-emerald-400" />
+                    <Award className="w-4 h-4" />
                     <span>
                       {isAr
-                        ? `2. الـ CV الاحترافي الكامل (${result.optimizedScore}% Harvard ATS)`
+                        ? `2. الـ CV التنفيذي الكامل (${result.optimizedScore}% Harvard ATS)`
                         : `2. Harvard Executive CV (${result.optimizedScore}%)`}
                     </span>
-                    {!isUnlocked && <Lock className="w-3.5 h-3.5 text-amber-400" />}
+                    {!isUnlocked && <Lock className="w-3.5 h-3.5" />}
                   </button>
 
                   <button
                     onClick={() => setActiveTab("cover-letter")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
                       activeTab === "cover-letter"
-                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <Briefcase className="w-4 h-4" />
                     <span>
                       {isAr ? "3. خطاب التقديم ورسالة الـ HR" : "3. Cover Letter & HR DM"}
                     </span>
-                    {!isUnlocked && <Lock className="w-3.5 h-3.5 text-amber-400" />}
+                    {!isUnlocked && <Lock className="w-3.5 h-3.5" />}
                   </button>
 
                   <button
                     onClick={() => setActiveTab("interview-prep")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
                       activeTab === "interview-prep"
-                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
-                        : "bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
+                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <HelpCircle className="w-4 h-4" />
                     <span>{isAr ? "4. أسئلة الإنترفيو المتوقعة" : "4. Interview Prep"}</span>
-                    {!isUnlocked && <Lock className="w-3.5 h-3.5 text-amber-400" />}
+                    {!isUnlocked && <Lock className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>
@@ -1893,7 +1900,7 @@ export default function MasarSaaSPage() {
               {activeTab === "ats-report" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-6 flex flex-col justify-between space-y-5">
+                    <div className="rounded-3xl bg-[#101017]/95 border border-amber-500/25 p-6 flex flex-col justify-between space-y-5 shadow-xl">
                       <div className="grid grid-cols-2 gap-3 text-center">
                         <div className="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/30 flex flex-col items-center justify-center space-y-1">
                           <span className="text-[11px] font-bold text-rose-300">
@@ -1907,44 +1914,44 @@ export default function MasarSaaSPage() {
                           </span>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 flex flex-col items-center justify-center space-y-1">
-                          <span className="text-[11px] font-bold text-emerald-300">
-                            {isAr ? "نسخة هارفارد المعدلة" : "Harvard CV"}
+                        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/40 flex flex-col items-center justify-center space-y-1">
+                          <span className="text-[11px] font-bold text-amber-200">
+                            {isAr ? "نسخة مسارك التنفيذية" : "Masarak Executive"}
                           </span>
-                          <span className="text-3xl font-extrabold text-emerald-400">
+                          <span className="text-3xl font-extrabold text-amber-300">
                             {result.optimizedScore}%
                           </span>
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">
+                          <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 font-semibold">
                             {isAr ? "✅ يتخطى الـ ATS" : "✅ ATS Ready"}
                           </span>
                         </div>
                       </div>
 
-                      <p className="text-xs text-slate-300 leading-relaxed text-center">
+                      <p className="text-xs text-stone-300 leading-relaxed text-center">
                         {isAr
-                          ? `تم إعادة بناء سيرتك الذاتية بالكامل وفق معيار جامعة هارفارد التنفيذي (Harvard Executive Standard) لترتفع نسبة القبول من ${result.atsScore}% إلى ${result.optimizedScore}%.`
+                          ? `تم إعادة بناء سيرتك الذاتية بالكامل على منصة مسارك وفق معيار جامعة هارفارد التنفيذي لترتفع نسبة القبول من ${result.atsScore}% إلى ${result.optimizedScore}%.`
                           : `We rebuilt your CV using the Harvard Executive Standard, boosting your score from ${result.atsScore}% to ${result.optimizedScore}%.`}
                       </p>
 
                       <button
                         onClick={() => setActiveTab("rewritten-cv")}
-                        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition"
+                        className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition"
                       >
                         <span>
                           {isAr
-                            ? `اعرض الـ CV الاحترافي الكامل (${result.optimizedScore}%)`
+                            ? `اعرض الـ CV التنفيذي الكامل (${result.optimizedScore}%)`
                             : `View Full Harvard Executive CV (${result.optimizedScore}%)`}
                         </span>
                         <ArrowUpRight className="w-4 h-4" />
                       </button>
                     </div>
 
-                    <div className="lg:col-span-2 rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-6">
+                    <div className="lg:col-span-2 rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-6 shadow-xl">
                       <div>
-                        <h3 className="font-bold text-base text-white mb-2">
+                        <h3 className="font-bold text-base text-amber-200 mb-2">
                           {isAr ? "تشخيص نظام الفرز الآلي (ATS)" : "ATS Bot Diagnostic"}
                         </h3>
-                        <p className="text-sm text-slate-200 leading-relaxed bg-rose-950/20 border border-rose-500/30 p-4 rounded-xl">
+                        <p className="text-sm text-stone-200 leading-relaxed bg-[#08080c] border border-amber-500/25 p-4 rounded-2xl">
                           {result.executiveFeedback}
                         </p>
                       </div>
@@ -1978,13 +1985,13 @@ export default function MasarSaaSPage() {
                         ].map((item, i) => (
                           <div
                             key={i}
-                            className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2"
+                            className="p-3.5 rounded-2xl bg-[#08080c] border border-stone-800 space-y-2"
                           >
                             <div className="flex items-center justify-between text-xs font-semibold">
-                              <span className="text-slate-300">{item.label}</span>
-                              <span className="text-white">{item.val}%</span>
+                              <span className="text-stone-300">{item.label}</span>
+                              <span className="text-amber-300 font-bold">{item.val}%</span>
                             </div>
-                            <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                            <div className="w-full h-2 rounded-full bg-stone-800 overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${barColor(item.val)}`}
                                 style={{ width: `${item.val}%` }}
@@ -1997,7 +2004,7 @@ export default function MasarSaaSPage() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-3">
+                    <div className="rounded-3xl bg-[#101017]/90 border border-stone-800 p-5 space-y-3">
                       <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
                         <CheckCircle2 className="w-4 h-4" />
                         <span>
@@ -2018,8 +2025,8 @@ export default function MasarSaaSPage() {
                       </div>
                     </div>
 
-                    <div className="rounded-2xl bg-slate-900/80 border border-rose-500/30 p-5 space-y-3">
-                      <div className="flex items-center gap-2 text-rose-400 font-bold text-sm">
+                    <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/30 p-5 space-y-3">
+                      <div className="flex items-center gap-2 text-amber-300 font-bold text-sm">
                         <AlertTriangle className="w-4 h-4" />
                         <span>
                           {isAr
@@ -2041,7 +2048,7 @@ export default function MasarSaaSPage() {
                         {!isUnlocked && result.lockedMissingKeywordsCount > 0 && (
                           <button
                             onClick={() => setShowPricingModal(true)}
-                            className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 transition cursor-pointer"
+                            className="flex items-center gap-1.5 text-xs font-black px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-300 to-yellow-500 hover:brightness-110 text-neutral-950 transition cursor-pointer shadow-md"
                           >
                             <Lock className="w-3.5 h-3.5" />
                             <span>
@@ -2063,38 +2070,38 @@ export default function MasarSaaSPage() {
               {activeTab === "rewritten-cv" && (
                 <div className="space-y-5 relative">
                   {/* Toolbar: Template Switcher + Edit + Print PDF */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#101017] border border-amber-500/25">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                        <LayoutTemplate className="w-4 h-4 text-indigo-400" />
-                        <span>{isAr ? "التصميم الاحترافي:" : "Executive Template:"}</span>
+                      <span className="text-xs font-bold text-amber-200 flex items-center gap-1.5">
+                        <LayoutTemplate className="w-4 h-4 text-amber-400" />
+                        <span>{isAr ? "التصميم التنفيذي:" : "Executive Template:"}</span>
                       </span>
                       <button
                         onClick={() => setCvTemplate("harvard")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
                           cvTemplate === "harvard"
-                            ? "bg-indigo-600 text-white"
-                            : "bg-slate-950 text-slate-400 hover:text-white border border-slate-800"
+                            ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950"
+                            : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                         }`}
                       >
                         {isAr ? "1. هارفارد الكلاسيكي (Harvard)" : "1. Harvard Executive"}
                       </button>
                       <button
                         onClick={() => setCvTemplate("corporate")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
                           cvTemplate === "corporate"
-                            ? "bg-indigo-600 text-white"
-                            : "bg-slate-950 text-slate-400 hover:text-white border border-slate-800"
+                            ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950"
+                            : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                         }`}
                       >
                         {isAr ? "2. الشركات العالمية (Corporate)" : "2. Modern Corporate"}
                       </button>
                       <button
                         onClick={() => setCvTemplate("tech")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition ${
                           cvTemplate === "tech"
-                            ? "bg-indigo-600 text-white"
-                            : "bg-slate-950 text-slate-400 hover:text-white border border-slate-800"
+                            ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950"
+                            : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                         }`}
                       >
                         {isAr ? "3. التقني المعاصر (FAANG Tech)" : "3. Silicon Valley Tech"}
@@ -2105,7 +2112,7 @@ export default function MasarSaaSPage() {
                       {isUnlocked && (
                         <button
                           onClick={() => setIsEditingCv(!isEditingCv)}
-                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition"
+                          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-amber-200 text-xs font-semibold transition"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                           <span>
@@ -2122,7 +2129,7 @@ export default function MasarSaaSPage() {
 
                       <button
                         onClick={handlePrintPdf}
-                        className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-600/20 transition"
+                        className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 text-xs sm:text-sm font-black shadow-lg shadow-amber-500/25 transition"
                       >
                         {isUnlocked ? (
                           <Download className="w-4 h-4" />
@@ -2144,8 +2151,8 @@ export default function MasarSaaSPage() {
 
                   {/* Full Inline Editor Drawer */}
                   {isUnlocked && isEditingCv && (
-                    <div className="p-5 rounded-2xl bg-slate-900 border border-indigo-500/40 space-y-4">
-                      <h4 className="text-xs font-bold text-indigo-300">
+                    <div className="p-5 rounded-2xl bg-[#101017] border border-amber-500/40 space-y-4">
+                      <h4 className="text-xs font-bold text-amber-300">
                         {isAr
                           ? "تعديل بيانات السيرة الذاتية مباشرة قبل الطباعة والتحميل:"
                           : "Edit Resume Fields Live:"}
@@ -2157,7 +2164,7 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, fullName: e.target.value })
                           }
                           placeholder="Full Name"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
                           value={editableCv.targetTitle}
@@ -2165,7 +2172,7 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, targetTitle: e.target.value })
                           }
                           placeholder="Target Title"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
                           value={editableCv.tagline || ""}
@@ -2173,7 +2180,7 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, tagline: e.target.value })
                           }
                           placeholder="Executive Tagline"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
                           value={editableCv.email}
@@ -2181,7 +2188,7 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, email: e.target.value })
                           }
                           placeholder="Email"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
                           value={editableCv.phone}
@@ -2189,7 +2196,7 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, phone: e.target.value })
                           }
                           placeholder="Phone"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                         <input
                           value={editableCv.location}
@@ -2197,11 +2204,11 @@ export default function MasarSaaSPage() {
                             setEditableCv({ ...editableCv, location: e.target.value })
                           }
                           placeholder="Location"
-                          className="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="px-3 py-2 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[11px] text-slate-400">
+                        <label className="text-[11px] text-stone-400">
                           الملخص التنفيذي (Executive Summary):
                         </label>
                         <textarea
@@ -2211,7 +2218,7 @@ export default function MasarSaaSPage() {
                           }
                           rows={4}
                           dir="ltr"
-                          className="w-full p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                          className="w-full p-3 rounded-lg bg-[#08080c] border border-stone-800 text-xs text-white"
                         />
                       </div>
                     </div>
@@ -2510,26 +2517,26 @@ export default function MasarSaaSPage() {
                       </div>
                     </div>
 
-                    {/* Floating Paywall Overlay when Locked */}
+                    {/* Floating Luxury Paywall Overlay when Locked */}
                     {!isUnlocked && (
-                      <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent flex items-center justify-center p-4">
-                        <div className="bg-slate-900 border-2 border-rose-500 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-2xl">
-                          <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center mx-auto text-rose-400">
-                            <Lock className="w-6 h-6" />
+                      <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-[#07070a] via-[#07070a]/90 to-transparent flex items-center justify-center p-4">
+                        <div className="bg-[#101017]/95 backdrop-blur-xl border-2 border-amber-400/70 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+                          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center mx-auto text-amber-300">
+                            <Crown className="w-6 h-6" />
                           </div>
-                          <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                          <h3 className="text-xl sm:text-2xl font-black text-amber-100">
                             {isAr
-                              ? `سيرتك الذاتية الاحترافية جاهزة (${result.optimizedScore}% Harvard ATS)`
+                              ? `سيرتك الذاتية التنفيذية جاهزة (${result.optimizedScore}% Harvard ATS)`
                               : `Your ${result.optimizedScore}% Harvard ATS Resume is Ready`}
                           </h3>
-                          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
                             {isAr
-                              ? `ادفع ${siteSettings.singlePlanPriceEgp} ج.م فقط عبر فودافون كاش لتحميل الـ CV الاحترافي الكامل (PDF بحجم A4) مع 3 قوالب عالمية + خطاب التقديم + أسئلة الإنترفيو.`
+                              ? `ادفع ${siteSettings.singlePlanPriceEgp} ج.م فقط عبر فودافون كاش لتحميل الـ CV التنفيذي الكامل (PDF بحجم A4) مع 3 قوالب عالمية + خطاب التقديم + أسئلة الإنترفيو.`
                               : "Unlock now via Vodafone Cash to download your full A4 Harvard ATS PDF."}
                           </p>
                           <button
                             onClick={() => setShowPricingModal(true)}
-                            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 text-white font-extrabold text-sm shadow-xl shadow-rose-600/25 transition"
+                            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/25 transition"
                           >
                             {isAr
                               ? `افتح القفل الآن بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
@@ -2545,16 +2552,16 @@ export default function MasarSaaSPage() {
               {/* TAB 3 & TAB 4 */}
               {(activeTab === "cover-letter" || activeTab === "interview-prep") &&
                 !isUnlocked && (
-                  <div className="rounded-3xl bg-slate-900 border-2 border-rose-500/40 p-8 text-center max-w-xl mx-auto space-y-4 shadow-2xl">
-                    <Lock className="w-10 h-10 text-rose-400 mx-auto" />
-                    <h3 className="text-xl font-extrabold text-white">
+                  <div className="rounded-3xl bg-[#101017] border-2 border-amber-400/50 p-8 text-center max-w-xl mx-auto space-y-4 shadow-2xl">
+                    <Crown className="w-10 h-10 text-amber-400 mx-auto" />
+                    <h3 className="text-xl font-black text-amber-100">
                       {isAr
                         ? "خطاب التقديم وأسئلة الإنترفيو جاهزة للمشتركين"
                         : "Cover Letter & Interview Prep Locked"}
                     </h3>
                     <button
                       onClick={() => setShowPricingModal(true)}
-                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white font-extrabold text-sm"
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 font-black text-sm shadow-lg"
                     >
                       {isAr
                         ? `تفعيل الاشتراك بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
@@ -2565,16 +2572,16 @@ export default function MasarSaaSPage() {
 
               {activeTab === "cover-letter" && isUnlocked && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4 flex flex-col">
+                  <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-4 flex flex-col">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-base text-white">
+                      <h3 className="font-bold text-base text-amber-200">
                         {isAr
                           ? "خطاب التقديم المخصص (Cover Letter)"
                           : "Tailored Cover Letter"}
                       </h3>
                       <button
                         onClick={() => handleCopy(result.coverLetter, "cover")}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-200 border border-amber-400/30 text-xs font-semibold"
                       >
                         {copiedId === "cover" ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2586,22 +2593,22 @@ export default function MasarSaaSPage() {
                     </div>
                     <pre
                       dir="auto"
-                      className="flex-1 whitespace-pre-wrap rounded-xl bg-slate-950 border border-slate-800 p-4 text-xs sm:text-sm text-slate-200 font-sans leading-relaxed"
+                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#08080c] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
                     >
                       {result.coverLetter}
                     </pre>
                   </div>
 
-                  <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-4 flex flex-col">
+                  <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-4 flex flex-col">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-base text-white">
+                      <h3 className="font-bold text-base text-amber-200">
                         {isAr
                           ? "رسالة سريعة لمسؤول التوظيف (LinkedIn / Email)"
                           : "Direct Recruiter Outreach"}
                       </h3>
                       <button
                         onClick={() => handleCopy(result.linkedinMessage, "linkedin")}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600/20 text-violet-300 border border-violet-500/30 text-xs font-semibold"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-200 border border-amber-400/30 text-xs font-semibold"
                       >
                         {copiedId === "linkedin" ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -2613,7 +2620,7 @@ export default function MasarSaaSPage() {
                     </div>
                     <pre
                       dir="auto"
-                      className="flex-1 whitespace-pre-wrap rounded-xl bg-slate-950 border border-slate-800 p-4 text-xs sm:text-sm text-slate-200 font-sans leading-relaxed"
+                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#08080c] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
                     >
                       {result.linkedinMessage}
                     </pre>
@@ -2626,13 +2633,13 @@ export default function MasarSaaSPage() {
                   {result.interviewPrep.map((item, idx) => (
                     <div
                       key={idx}
-                      className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 space-y-3"
+                      className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-3"
                     >
-                      <h4 className="font-bold text-sm sm:text-base text-white">
+                      <h4 className="font-bold text-sm sm:text-base text-amber-200">
                         Q{idx + 1}: {item.question}
                       </h4>
-                      <p className="text-xs text-amber-300/90">{item.whyAsked}</p>
-                      <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      <p className="text-xs text-amber-400/90">{item.whyAsked}</p>
+                      <div className="p-4 rounded-2xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-stone-300 leading-relaxed">
                         {item.sampleAnswer}
                       </div>
                     </div>
@@ -2645,21 +2652,21 @@ export default function MasarSaaSPage() {
           {/* CUSTOMER SUPPORT SECTION AT THE BOTTOM */}
           <section
             ref={supportSectionRef}
-            className="pt-8 border-t border-slate-800/80 max-w-4xl mx-auto"
+            className="pt-8 border-t border-amber-500/15 max-w-4xl mx-auto"
           >
-            <div className="rounded-3xl bg-slate-900/80 border border-slate-800 p-6 sm:p-8 space-y-5 shadow-xl">
+            <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/25 p-6 sm:p-8 space-y-5 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)]">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <div className="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300">
                     <MessageSquare className="w-5 h-5" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-extrabold text-white">
+                    <h2 className="text-lg font-extrabold text-amber-100">
                       {isAr
                         ? "خدمة العملاء والدعم الفني المباشر"
                         : "Customer Support & Live Help"}
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-stone-400">
                       {isAr
                         ? "هل لديك أي استفسار أو مشكلة في الدفع؟ اكتب رسالتك هنا وستصل للإدارة فوراً ويظهر لك الرد في نفس المحادثة."
                         : "Send us a message below and our team will reply right here."}
@@ -2669,18 +2676,18 @@ export default function MasarSaaSPage() {
               </div>
 
               {supportMessages.length > 0 && (
-                <div className="rounded-2xl bg-slate-950 border border-slate-800 p-4 max-h-72 overflow-y-auto space-y-3">
+                <div className="rounded-2xl bg-[#08080c] border border-stone-800 p-4 max-h-72 overflow-y-auto space-y-3">
                   {supportMessages.map((msg) => (
                     <div
                       key={msg.id}
                       className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                         msg.sender === "user"
-                          ? "bg-indigo-600/20 border border-indigo-500/30 text-slate-100 ml-auto"
+                          ? "bg-amber-500/15 border border-amber-400/30 text-stone-100 ml-auto"
                           : "bg-emerald-600/20 border border-emerald-500/40 text-emerald-100 mr-auto"
                       }`}
                     >
                       <span className="block text-[10px] font-bold opacity-75 mb-1">
-                        {msg.sender === "admin" ? "🛠️ رد الإدارة (خدمة العملاء):" : "أنت:"}
+                        {msg.sender === "admin" ? "👑 رد إدارة مسارك (خدمة العملاء):" : "أنت:"}
                       </span>
                       <p className="whitespace-pre-wrap">{msg.text}</p>
                     </div>
@@ -2696,7 +2703,7 @@ export default function MasarSaaSPage() {
                       value={guestName}
                       onChange={(e) => setGuestName(e.target.value)}
                       placeholder={isAr ? "اسمك" : "Your Name"}
-                      className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs sm:text-sm text-white"
+                      className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-white"
                     />
                     <input
                       type="text"
@@ -2707,7 +2714,7 @@ export default function MasarSaaSPage() {
                           ? "رقم موبايلك أو إيميلك للتواصل"
                           : "Your Phone or Email"
                       }
-                      className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs sm:text-sm text-white"
+                      className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-white"
                     />
                   </div>
                 )}
@@ -2722,12 +2729,12 @@ export default function MasarSaaSPage() {
                         ? "اكتب رسالتك لخدمة العملاء هنا..."
                         : "Type your message to customer support..."
                     }
-                    className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:outline-none text-xs sm:text-sm text-white"
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#08080c] border border-stone-800 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
                   />
                   <button
                     type="submit"
                     disabled={isSendingSupport}
-                    className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition"
                   >
                     <Send className="w-4 h-4" />
                     <span>{isAr ? "إرسال لخدمة العملاء" : "Send Message"}</span>
@@ -2746,40 +2753,40 @@ export default function MasarSaaSPage() {
 
       {/* LOGIN / REGISTER MODAL */}
       {showAuthModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
           <div
             dir={isAr ? "rtl" : "ltr"}
-            className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl"
+            className="bg-[#101017] border border-amber-500/35 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl"
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-lg font-extrabold text-white">
+            <div className="flex items-center justify-between border-b border-stone-800 pb-3">
+              <h3 className="text-lg font-extrabold text-amber-200">
                 {authMode === "login"
                   ? isAr
-                    ? "تسجيل الدخول لحسابك"
-                    : "Sign In"
+                    ? "تسجيل الدخول لمنصة مسارك"
+                    : "Sign In to Masarak"
                   : isAr
-                  ? "إنشاء حساب جديد"
+                  ? "إنشاء حساب تنفيذي جديد"
                   : "Create Account"}
               </h3>
               <button
                 onClick={() => setShowAuthModal(false)}
-                className="text-slate-400 hover:text-white text-sm px-2.5 py-1 rounded-lg bg-slate-800"
+                className="text-stone-400 hover:text-white text-sm px-2.5 py-1 rounded-lg bg-stone-800"
               >
                 ✕
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-slate-950 border border-slate-800">
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#08080c] border border-stone-800">
               <button
                 type="button"
                 onClick={() => {
                   setAuthMode("login");
                   setAuthError("");
                 }}
-                className={`py-2 rounded-lg text-xs font-bold transition ${
+                className={`py-2 rounded-lg text-xs font-extrabold transition ${
                   authMode === "login"
-                    ? "bg-indigo-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950"
+                    : "text-stone-400 hover:text-white"
                 }`}
               >
                 {isAr ? "تسجيل دخول" : "Login"}
@@ -2790,10 +2797,10 @@ export default function MasarSaaSPage() {
                   setAuthMode("register");
                   setAuthError("");
                 }}
-                className={`py-2 rounded-lg text-xs font-bold transition ${
+                className={`py-2 rounded-lg text-xs font-extrabold transition ${
                   authMode === "register"
-                    ? "bg-indigo-600 text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950"
+                    : "text-stone-400 hover:text-white"
                 }`}
               >
                 {isAr ? "حساب جديد" : "Register"}
@@ -2803,7 +2810,7 @@ export default function MasarSaaSPage() {
             <form onSubmit={handleAuthSubmit} className="space-y-4">
               {authMode === "register" && (
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-300">
+                  <label className="text-xs font-bold text-stone-300">
                     {isAr ? "الاسم بالكامل" : "Full Name"}
                   </label>
                   <input
@@ -2811,13 +2818,13 @@ export default function MasarSaaSPage() {
                     value={authName}
                     onChange={(e) => setAuthName(e.target.value)}
                     placeholder={isAr ? "مثال: أحمد محمد" : "Your Name"}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white"
                   />
                 </div>
               )}
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-300">
+                <label className="text-xs font-bold text-stone-300">
                   {isAr
                     ? "البريد الإلكتروني أو رقم الموبايل"
                     : "Email Address or Mobile Number"}
@@ -2828,12 +2835,12 @@ export default function MasarSaaSPage() {
                   onChange={(e) => setAuthIdentifier(e.target.value)}
                   placeholder="010xxxxxxxx / email@gmail.com"
                   dir="ltr"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white font-mono"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-300">
+                <label className="text-xs font-bold text-stone-300">
                   {isAr ? "كلمة المرور" : "Password"}
                 </label>
                 <input
@@ -2841,7 +2848,7 @@ export default function MasarSaaSPage() {
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white"
                 />
               </div>
 
@@ -2850,7 +2857,7 @@ export default function MasarSaaSPage() {
               <button
                 type="submit"
                 disabled={isSubmittingAuth}
-                className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm transition"
               >
                 {isSubmittingAuth
                   ? isAr
@@ -2871,23 +2878,23 @@ export default function MasarSaaSPage() {
 
       {/* VODAFONE CASH ONLY PAYMENT MODAL */}
       {showPricingModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
           <div
             dir={isAr ? "rtl" : "ltr"}
-            className="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl my-8"
+            className="bg-[#101017] border border-amber-500/35 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl my-8"
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center justify-between border-b border-stone-800 pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-neutral-950">
                   <Smartphone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-white">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-amber-100">
                     {isAr
-                      ? "الدفع وتفعيل الحساب عبر فودافون كاش"
+                      ? "الدفع وتفعيل العضوية عبر فودافون كاش"
                       : "Vodafone Cash Checkout"}
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-stone-400">
                     {isAr
                       ? "حوّل المبلغ على رقم فودافون كاش وأرفق صورة التحويل لتفعيل حسابك"
                       : "Transfer via Vodafone Cash and upload your receipt"}
@@ -2896,7 +2903,7 @@ export default function MasarSaaSPage() {
               </div>
               <button
                 onClick={() => setShowPricingModal(false)}
-                className="text-slate-400 hover:text-white text-sm px-3 py-1 rounded-lg bg-slate-800"
+                className="text-stone-400 hover:text-white text-sm px-3 py-1 rounded-lg bg-stone-800"
               >
                 ✕
               </button>
@@ -2907,31 +2914,31 @@ export default function MasarSaaSPage() {
                 onClick={() => setSelectedPlan("single")}
                 className={`p-4 rounded-2xl border-2 cursor-pointer transition space-y-1.5 ${
                   selectedPlan === "single"
-                    ? "bg-rose-950/40 border-rose-500"
-                    : "bg-slate-950 border-slate-800 opacity-75"
+                    ? "bg-amber-500/15 border-amber-400"
+                    : "bg-[#08080c] border-stone-800 opacity-75"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-rose-300">
+                  <span className="text-xs font-bold text-amber-200">
                     {siteSettings.singlePlanNameAr}
                   </span>
                   <span className="text-xl font-extrabold text-white">
                     {siteSettings.singlePlanPriceEgp} ج.م
                   </span>
                 </div>
-                <p className="text-xs text-slate-300">{siteSettings.singlePlanDescAr}</p>
+                <p className="text-xs text-stone-300">{siteSettings.singlePlanDescAr}</p>
               </div>
 
               <div
                 onClick={() => setSelectedPlan("pro")}
                 className={`p-4 rounded-2xl border-2 cursor-pointer transition space-y-1.5 relative ${
                   selectedPlan === "pro"
-                    ? "bg-rose-950/40 border-amber-500"
-                    : "bg-slate-950 border-slate-800 opacity-75"
+                    ? "bg-amber-500/15 border-amber-400"
+                    : "bg-[#08080c] border-stone-800 opacity-75"
                 }`}
               >
-                <span className="absolute -top-2.5 left-4 px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-extrabold">
-                  {isAr ? "الأوفر" : "Best Value"}
+                <span className="absolute -top-2.5 left-4 px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950 text-[10px] font-extrabold">
+                  {isAr ? "الأوفر (VIP)" : "Best Value"}
                 </span>
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-amber-300">
@@ -2941,13 +2948,13 @@ export default function MasarSaaSPage() {
                     {siteSettings.proPlanPriceEgp} ج.م
                   </span>
                 </div>
-                <p className="text-xs text-slate-300">{siteSettings.proPlanDescAr}</p>
+                <p className="text-xs text-stone-300">{siteSettings.proPlanDescAr}</p>
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-950/60 to-slate-950 border border-rose-500/40 flex items-center justify-between gap-3">
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 to-[#08080c] border border-amber-400/40 flex items-center justify-between gap-3">
               <div>
-                <span className="text-xs text-rose-300 font-bold block">
+                <span className="text-xs text-amber-200 font-bold block">
                   {isAr
                     ? `حوّل ${
                         selectedPlan === "single"
@@ -2963,7 +2970,7 @@ export default function MasarSaaSPage() {
               <button
                 type="button"
                 onClick={() => handleCopy(siteSettings.vodafoneCashNumber, "vf-num")}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950 text-xs font-black transition"
               >
                 {copiedId === "vf-num" ? (
                   <Check className="w-4 h-4" />
@@ -2975,8 +2982,8 @@ export default function MasarSaaSPage() {
             </div>
 
             {!currentUser ? (
-              <div className="p-5 rounded-2xl bg-slate-950 border border-indigo-500/40 text-center space-y-3">
-                <p className="text-xs sm:text-sm text-slate-200 font-semibold">
+              <div className="p-5 rounded-2xl bg-[#08080c] border border-amber-500/40 text-center space-y-3">
+                <p className="text-xs sm:text-sm text-stone-200 font-semibold">
                   {isAr
                     ? "يرجى تسجيل الدخول أو إنشاء حساب (بالإيميل أو رقم الموبايل) أولاً لربط التفعيل بحسابك:"
                     : "Please sign in or register first so we can activate your account:"}
@@ -2987,7 +2994,7 @@ export default function MasarSaaSPage() {
                     setShowPricingModal(false);
                     setShowAuthModal(true);
                   }}
-                  className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm transition"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 to-yellow-500 text-neutral-950 font-black text-xs sm:text-sm transition"
                 >
                   {isAr ? "تسجيل دخول / إنشاء حساب في ثانية" : "Login / Sign Up"}
                 </button>
@@ -2996,7 +3003,7 @@ export default function MasarSaaSPage() {
               <form onSubmit={handleSubmitVodafonePayment} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-300 block">
+                    <label className="text-xs font-bold text-stone-300 block">
                       {isAr ? "الرقم اللي بتحول منه:" : "Sender Mobile Number:"}
                     </label>
                     <input
@@ -3006,12 +3013,12 @@ export default function MasarSaaSPage() {
                       placeholder="010xxxxxxxx"
                       dir="ltr"
                       required
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white font-mono"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-300 block">
+                    <label className="text-xs font-bold text-stone-300 block">
                       {isAr ? "المحفظة اللي محول منها باسم مين:" : "Wallet Owner Name:"}
                     </label>
                     <input
@@ -3020,13 +3027,13 @@ export default function MasarSaaSPage() {
                       onChange={(e) => setWalletOwnerName(e.target.value)}
                       placeholder={isAr ? "الاسم الثلاثي لصاحب الخط" : "Wallet Holder Name"}
                       required
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-sm text-white"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-300 block">
+                  <label className="text-xs font-bold text-stone-300 block">
                     {isAr ? "إرفاق صورة التحويل (سكرين شوت):" : "Upload Transfer Screenshot:"}
                   </label>
                   <input
@@ -3038,14 +3045,14 @@ export default function MasarSaaSPage() {
                   />
                   <div
                     onClick={() => receiptInputRef.current?.click()}
-                    className="border-2 border-dashed border-slate-700 hover:border-rose-500 rounded-2xl p-4 text-center cursor-pointer bg-slate-950/70 transition space-y-2"
+                    className="border-2 border-dashed border-amber-500/35 hover:border-amber-400 rounded-2xl p-4 text-center cursor-pointer bg-[#08080c] transition space-y-2"
                   >
                     {screenshotDataUrl ? (
                       <div className="space-y-2">
                         <img
                           src={screenshotDataUrl}
                           alt="Receipt preview"
-                          className="max-h-36 mx-auto rounded-lg border border-slate-800"
+                          className="max-h-36 mx-auto rounded-lg border border-stone-800"
                         />
                         <span className="text-xs text-emerald-400 font-bold block">
                           ✓ تم إرفاق الصورة: {screenshotFileName} (اضغط لتغييرها)
@@ -3053,8 +3060,8 @@ export default function MasarSaaSPage() {
                       </div>
                     ) : (
                       <div className="py-3 space-y-1.5">
-                        <ImageIcon className="w-7 h-7 text-rose-400 mx-auto" />
-                        <p className="text-xs font-bold text-slate-200">
+                        <ImageIcon className="w-7 h-7 text-amber-400 mx-auto" />
+                        <p className="text-xs font-bold text-stone-200">
                           {isAr
                             ? "اضغط هنا لاختيار صورة رسالة أو إيصال التحويل"
                             : "Click to upload screenshot of Vodafone Cash transfer"}
@@ -3074,7 +3081,7 @@ export default function MasarSaaSPage() {
                 <button
                   type="submit"
                   disabled={isSubmittingPayment}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 text-white font-extrabold text-sm shadow-xl shadow-rose-600/20 transition"
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/20 transition"
                 >
                   {isSubmittingPayment
                     ? isAr
@@ -3091,8 +3098,8 @@ export default function MasarSaaSPage() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
-        {siteSettings.siteNameAr} ({siteSettings.siteNameEn}) — جميع الحقوق محفوظة
+      <footer className="relative z-10 border-t border-amber-500/15 py-6 text-center text-xs text-stone-500">
+        ✦ {siteSettings.siteNameAr} ({siteSettings.siteNameEn}) — المنصة التنفيذية لصياغة السيرة الذاتية | جميع الحقوق محفوظة
       </footer>
     </div>
   );

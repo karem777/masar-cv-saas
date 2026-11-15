@@ -78,12 +78,28 @@ function ensureDb(): DatabaseSchema {
   try {
     const raw = fs.readFileSync(DB_FILE, "utf-8");
     const parsed = JSON.parse(raw) as Partial<DatabaseSchema>;
+    const mergedSettings: SiteSettings = {
+      ...DEFAULT_SITE_SETTINGS,
+      ...(parsed.settings || {})
+    };
+    if (
+      !mergedSettings.siteNameAr ||
+      mergedSettings.siteNameAr === "مسار AI"
+    ) {
+      mergedSettings.siteNameAr = "مسارك";
+    }
+    if (
+      !mergedSettings.siteNameEn ||
+      mergedSettings.siteNameEn === "Masar AI"
+    ) {
+      mergedSettings.siteNameEn = "Masarak";
+    }
     return {
       users: parsed.users || [],
       payments: parsed.payments || [],
       supportMessages: parsed.supportMessages || [],
       sessions: parsed.sessions || {},
-      settings: { ...DEFAULT_SITE_SETTINGS, ...(parsed.settings || {}) }
+      settings: mergedSettings
     };
   } catch {
     return {

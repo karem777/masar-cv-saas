@@ -15,9 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Masar AI | مُحسِّن السيرة الذاتية الذكي وتخطي الـ ATS",
+  title: "مسارك | Masarak — المنصة التنفيذية لصياغة السيرة الذاتية وتخطي الـ ATS",
   description:
-    "افحص سيرتك الذاتية مجاناً، اكتشف نسبة توافقها مع الوظيفة، واحصل على نسخة CV معدلة لتخطي نظام الـ ATS مع خطاب التقديم وأسئلة الإنترفيو المتوقعة."
+    "منصة مسارك التنفيذية: افحص سيرتك الذاتية مجاناً، اكتشف نسبة توافقها مع الوظيفة، واحصل على نسخة CV بمعايير جامعة هارفارد لتخطي نظام الـ ATS مع خطاب التقديم وأسئلة الإنترفيو."
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${inter.variable}`}>
-      <body className="font-sans min-h-screen bg-slate-950 text-slate-100">
+      <body className="font-sans min-h-screen bg-[#07070a] text-stone-100">
         {children}
       </body>
     </html>

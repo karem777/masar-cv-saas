@@ -108,8 +108,8 @@ export interface SiteSettings {
 }
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  siteNameAr: "مسار AI",
-  siteNameEn: "Masar AI",
+  siteNameAr: "مسارك",
+  siteNameEn: "Masarak",
   heroTitleAr: "اكشف سبب رفض الـ CV بتاعك",
   heroHighlightAr: "واحصل على سيرة ذاتية تنفيذية مقبولة 96% فوراً",
   heroSubtitleAr:

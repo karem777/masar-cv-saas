@@ -4,8 +4,27 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-indigo-200;
+    background-color: #07070a;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(212, 175, 55, 0.16), transparent),
+      radial-gradient(ellipse 55% 40% at 85% 20%, rgba(180, 130, 40, 0.08), transparent),
+      radial-gradient(ellipse 55% 40% at 15% 80%, rgba(212, 175, 55, 0.06), transparent);
+    background-attachment: fixed;
+    @apply text-stone-100 antialiased selection:bg-amber-500/30 selection:text-amber-100;
   }
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090d;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b48811 0%, #6b4f0a 100%);
+  border-radius: 9999px;
 }
 
 @media print {
