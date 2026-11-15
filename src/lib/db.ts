@@ -1,56 +1,16 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
+import {
+  SiteSettings,
+  DEFAULT_SITE_SETTINGS,
+  DEFAULT_VODAFONE_CASH_NUMBER
+} from "@/types/cv";
 
+export type { SiteSettings };
+export { DEFAULT_SITE_SETTINGS, DEFAULT_VODAFONE_CASH_NUMBER };
 export const ADMIN_EMAIL = "karemaboelnsr9@gmail.com";
 export const ADMIN_EMAIL_ALT = "karemaboelnsr24@gmail.com";
-export const DEFAULT_VODAFONE_CASH_NUMBER = "01011892362";
-
-export interface SiteSettings {
-  siteNameAr: string;
-  siteNameEn: string;
-  heroTitleAr: string;
-  heroHighlightAr: string;
-  heroSubtitleAr: string;
-  announcementAr: string;
-  vodafoneCashNumber: string;
-  singlePlanNameAr: string;
-  singlePlanPriceEgp: number;
-  singlePlanDescAr: string;
-  proPlanNameAr: string;
-  proPlanPriceEgp: number;
-  proPlanDescAr: string;
-  freeVisibleMissingKeywords: number;
-  freeAllUsersPromo: boolean;
-  maintenanceMode: boolean;
-  geminiApiKey: string;
-  whatsappSupportNumber: string;
-}
-
-export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  siteNameAr: "مسار AI",
-  siteNameEn: "Masar AI",
-  heroTitleAr: "اكشف سبب رفض الـ CV بتاعك",
-  heroHighlightAr: "واحصل على سيرة ذاتية تنفيذية مقبولة 96% فوراً",
-  heroSubtitleAr:
-    "افحص درجة الـ CV الحالي مجاناً، وشاهد كيف نعيد صياغته وفق معايير جامعة هارفارد وأنظمة الـ ATS العالمية في صفحة A4 احترافية متكاملة.",
-  announcementAr:
-    "75% من السير الذاتية يتم رفضها آلياً بواسطة برامج الـ ATS قبل أن يراها الـ HR",
-  vodafoneCashNumber: DEFAULT_VODAFONE_CASH_NUMBER,
-  singlePlanNameAr: "باقة الـ CV الواحد الاحترافية",
-  singlePlanPriceEgp: 49,
-  singlePlanDescAr:
-    "تحميل الـ CV التنفيذي الكامل PDF + كشف جميع الكلمات المفتاحية + خطاب التقديم",
-  proPlanNameAr: "باقة الشهر الكامل غير المحدودة (Pro)",
-  proPlanPriceEgp: 149,
-  proPlanDescAr:
-    "تعديلات وتحميل بلا حدود لكل الوظائف + قوالب هارفارد والشركات العالمية + أسئلة الإنترفيو لمدة 30 يوم",
-  freeVisibleMissingKeywords: 2,
-  freeAllUsersPromo: false,
-  maintenanceMode: false,
-  geminiApiKey: "",
-  whatsappSupportNumber: "01011892362"
-};
 
 export interface UserRecord {
   id: string;

@@ -38,9 +38,13 @@ import {
   LayoutTemplate,
   Award
 } from "lucide-react";
-import { AnalysisResult, RewrittenCV } from "@/types/cv";
+import {
+  AnalysisResult,
+  RewrittenCV,
+  DEFAULT_SITE_SETTINGS,
+  SiteSettings
+} from "@/types/cv";
 import { SAMPLE_PRESETS } from "@/lib/samples";
-import { DEFAULT_SITE_SETTINGS, SiteSettings } from "@/lib/db";
 
 interface LoggedInUser {
   id: string;
