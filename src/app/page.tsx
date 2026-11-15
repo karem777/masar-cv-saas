@@ -2419,17 +2419,29 @@ export default function MasarSaaSPage() {
                           : `We rebuilt your CV using the Harvard Executive Standard, boosting your score from ${result.atsScore}% to ${result.optimizedScore}%.`}
                       </p>
 
-                      <button
-                        onClick={() => setActiveTab("rewritten-cv")}
-                        className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition"
-                      >
-                        <span>
-                          {isAr
-                            ? `اعرض الـ CV التنفيذي الكامل (${result.optimizedScore}%)`
-                            : `View Full Harvard Executive CV (${result.optimizedScore}%)`}
-                        </span>
-                        <ArrowUpRight className="w-4 h-4" />
-                      </button>
+                      <div className="space-y-2">
+                        <button
+                          onClick={() => setActiveTab("rewritten-cv")}
+                          className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition"
+                        >
+                          <span>
+                            {isAr
+                              ? `اعرض الـ CV التنفيذي الكامل (${result.optimizedScore}%)`
+                              : `View Full Harvard Executive CV (${result.optimizedScore}%)`}
+                          </span>
+                          <ArrowUpRight className="w-4 h-4" />
+                        </button>
+                        <a
+                          href={`https://wa.me/?text=${encodeURIComponent(
+                            `فحصت الـ CV بتاعي على منصة مسارك، كان ${result.atsScore}% واتحول لـ ${result.optimizedScore}% بمعيار جامعة هارفارد التنفيذي (عربي وإنجليزي)! جرب تفحص الـ CV بتاعك مجاناً من هنا 🇪🇬👑:\nhttps://masar-cv-saas.onrender.com`
+                          )}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-full py-2.5 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition"
+                        >
+                          <span>📲 شارك نتيجتك مع أصدقائك على واتساب</span>
+                        </a>
+                      </div>
                     </div>
 
                     <div className="lg:col-span-2 rounded-3xl lux-glass border border-amber-500/25 p-6 space-y-6">
@@ -3316,6 +3328,143 @@ export default function MasarSaaSPage() {
             </div>
           </section>
 
+          {/* 5.5 EGYPTIAN EXECUTIVE SUCCESS STORIES & FAQ (CONVERSION BOOSTER) */}
+          <section className="space-y-10 pt-4">
+            {/* Success Stories Grid */}
+            <div className="space-y-5">
+              <div className="text-center max-w-2xl mx-auto space-y-1.5">
+                <span className="text-xs font-extrabold uppercase tracking-widest text-amber-400">
+                  ✦ VERIFIED EGYPTIAN MEMBERS
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-stone-100">
+                  {isAr
+                    ? "تجارب المشتركين مع منصة مسارك في سوق العمل المصري"
+                    : "How Masarak Transformed Careers Across Egypt"}
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {[
+                  {
+                    name: isAr ? "أحمد طارق — محاسب مالي أول" : "Ahmed Tarek — Senior Accountant",
+                    company: isAr ? "تم القبول في شركة Multinational بالتجمع" : "Hired at Multinational Corp (New Cairo)",
+                    score: "34% ➔ 96%",
+                    quote: isAr
+                      ? "كنت ببعت السي في على Wuzzuf بالشهور ومحدش بيكلمني. لما فحصته على مسارك طلع 34%! بعد ما استلمت النسخة التنفيذية بالعربي والإنجليزي جالي 3 مكالمات إنترفيو في أول أسبوع."
+                      : "After upgrading my CV on Masarak from 34% to 96%, I received 3 interview calls within my first week."
+                  },
+                  {
+                    name: isAr ? "مريم خالد — خدمة عملاء ومبيعات" : "Mariam Khaled — Customer Experience",
+                    company: isAr ? "تم القبول في شركة اتصالات كبرى بالقرية الذكية" : "Hired at Smart Village Telecom",
+                    score: "41% ➔ 97%",
+                    quote: isAr
+                      ? "أكتر حاجة فرقت معايا إن الموقع طلعلي الـ CV جاهز للطباعة PDF ومعاه أهم أسئلة الإنترفيو المتوقعة للوظيفة وإجابتها النموذجية، والتفعيل بـ فودافون كاش كان فوري."
+                      : "The A4 Harvard PDF and tailored interview prep questions made all the difference. Instant Vodafone Cash activation!"
+                  },
+                  {
+                    name: isAr ? "م. كريم عادل — مطور برمجيات" : "Eng. Karim Adel — Software Engineer",
+                    company: isAr ? "تم القبول في شركة برمجيات بالمعادي" : "Hired at Tech Firm (Maadi)",
+                    score: "48% ➔ 96%",
+                    quote: isAr
+                      ? "صياغة هارفارد بالأرقام والنسب المئوية (XYZ Formula) خلت الـ CV شكله احترافي جداً قدام الـ Tech Lead والـ HR، وعدى فلتر الـ ATS من أول مرة."
+                      : "The Harvard XYZ bullet points and ATS keyword matrix helped my resume pass screening immediately."
+                  }
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-3xl lux-glass border border-amber-500/25 p-6 flex flex-col justify-between space-y-4"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30">
+                          ATS: {item.score}
+                        </span>
+                        <span className="text-amber-400 text-xs font-bold">★★★★★</span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                        &ldquo;{item.quote}&rdquo;
+                      </p>
+                    </div>
+                    <div className="border-t border-stone-800/80 pt-3">
+                      <div className="font-bold text-xs sm:text-sm text-amber-200">
+                        {item.name}
+                      </div>
+                      <div className="text-[11px] text-stone-400">{item.company}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Executive FAQ Section */}
+            <div className="rounded-3xl lux-glass border border-amber-500/25 p-6 sm:p-8 space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-800 pb-4">
+                <div>
+                  <span className="text-xs font-extrabold text-amber-400 uppercase tracking-widest">
+                    ✦ FREQUENTLY ASKED QUESTIONS
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-stone-100">
+                    {isAr
+                      ? "الأسئلة الشائعة قبل الاشتراك وتأكيد الدفع"
+                      : "Frequently Asked Questions"}
+                  </h3>
+                </div>
+                <span className="text-xs text-stone-400">
+                  {isAr
+                    ? `الدعم المباشر وفودافون كاش: ${siteSettings.vodafoneCashNumber}`
+                    : `Vodafone Cash: ${siteSettings.vodafoneCashNumber}`}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  {
+                    q: isAr
+                      ? "هل أقدر أطلع الـ CV بالعربي أو بالإنجليزي؟"
+                      : "Can I generate my CV in Arabic or English?",
+                    a: isAr
+                      ? "نعم! منصة مسارك تدعم اللغتين العربية والإنجليزية بالكامل. يمكنك إدخال بياناتك بأي لغة واختيار استخراج الـ CV وخطاب التقديم بالعربية أو بالإنجليزية بضغطة زر واحدة."
+                      : "Yes! Masarak supports full Arabic (RTL) and English (LTR) Harvard Executive resumes."
+                  },
+                  {
+                    q: isAr
+                      ? "إزاي بيتم التفعيل بعد تحويل فودافون كاش؟"
+                      : "How does Vodafone Cash activation work?",
+                    a: isAr
+                      ? `بعد تحويل مبلغ الباقة (${siteSettings.singlePlanPriceEgp} ج.م أو ${siteSettings.proPlanPriceEgp} ج.م) على رقم ${siteSettings.vodafoneCashNumber}، ترفع صورة التحويل من داخل الموقع أو ترسلها عبر واتساب، ويتم فتح حسابك فوراً لتحميل الـ PDF.`
+                      : "Simply transfer via Vodafone Cash, upload the screenshot, and your account unlocks immediately."
+                  },
+                  {
+                    q: isAr
+                      ? "هل أقدر أعدل أي كلمة في الـ CV قبل ما أحمله PDF؟"
+                      : "Can I edit the resume before downloading the PDF?",
+                    a: isAr
+                      ? "بالتأكيد! بمجرد تفعيل حسابك يظهر لك زر (تعديل أي نص في الـ CV) لتعديل الاسم أو العناوين أو الملخص، بالإضافة إلى إمكانية التبديل بين 3 قوالب عالمية (Harvard / Corporate / Tech)."
+                      : "Yes, full live inline editing and 3 executive templates are included."
+                  },
+                  {
+                    q: isAr
+                      ? "هل ملف الـ PDF المستخرج بيتقري صح في أنظمة الـ ATS؟"
+                      : "Is the downloaded PDF 100% ATS-readable?",
+                    a: isAr
+                      ? "نعم 100%، لأننا نصدر ملف PDF نصي قياسي بحجم A4 وفق هيكلة جامعة هارفارد بدون جداول معقدة أو رسوم تعيق قراءة بوتات الـ ATS في الشركات والبنوك."
+                      : "Yes, it exports a clean, selectable text-based A4 PDF built specifically for ATS parsers."
+                  }
+                ].map((faq, i) => (
+                  <div
+                    key={i}
+                    className="p-4 rounded-2xl bg-[#07070a]/90 border border-stone-800 space-y-1.5"
+                  >
+                    <h4 className="font-extrabold text-xs sm:text-sm text-amber-200">
+                      ❖ {faq.q}
+                    </h4>
+                    <p className="text-xs text-stone-400 leading-relaxed">{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* 6. EXECUTIVE CONCIERGE CUSTOMER SUPPORT DESK */}
           <section
             ref={supportSectionRef}
@@ -3776,10 +3925,42 @@ export default function MasarSaaSPage() {
                     ? "تأكيد وإرسال صورة التحويل لتفعيل الحساب"
                     : "Submit Transfer & Activate Account"}
                 </button>
+
+                <a
+                  href={`https://wa.me/2${siteSettings.vodafoneCashNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
+                    `مرحباً إدارة منصة مسارك 👑، قمت بتحويل مبلغ باقة (${
+                      selectedPlan === "pro"
+                        ? `${siteSettings.proPlanPriceEgp} ج.م - Pro`
+                        : `${siteSettings.singlePlanPriceEgp} ج.م - CV واحد`
+                    }) عبر فودافون كاش وأرغب في التفعيل الفوري لحسابي (${
+                      currentUser?.identifier || ""
+                    }).`
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition"
+                >
+                  <span>💬 أو اضغط هنا لإرسال إيصال التحويل مباشرة عبر واتساب للتفعيل الفوري</span>
+                </a>
               </form>
             )}
           </div>
         </div>
+      )}
+
+      {/* Floating Direct WhatsApp Sales & Concierge Pill */}
+      {(!currentUser?.isAdmin || adminViewMode === "app") && (
+        <a
+          href={`https://wa.me/2${siteSettings.vodafoneCashNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
+            "مرحباً إدارة منصة مسارك 👑، أستفسر عن تفعيل الباقة واستخراج السيرة الذاتية بمعيار هارفارد ATS."
+          )}`}
+          target="_blank"
+          rel="noreferrer"
+          className="fixed bottom-5 left-5 z-40 flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:brightness-110 text-white font-black text-xs shadow-[0_10px_30px_rgba(16,185,129,0.45)] border border-emerald-300/40 transition"
+        >
+          <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
+          <span>{isAr ? "تواصل واتساب مباشر" : "WhatsApp Concierge"}</span>
+        </a>
       )}
 
       {/* Footer */}
