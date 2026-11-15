@@ -4,14 +4,64 @@
 
 @layer base {
   body {
-    background-color: #07070a;
+    background-color: #050507;
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(212, 175, 55, 0.16), transparent),
-      radial-gradient(ellipse 55% 40% at 85% 20%, rgba(180, 130, 40, 0.08), transparent),
-      radial-gradient(ellipse 55% 40% at 15% 80%, rgba(212, 175, 55, 0.06), transparent);
+      radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.14), transparent 35%),
+      radial-gradient(circle at 85% 15%, rgba(180, 130, 40, 0.10), transparent 40%),
+      radial-gradient(circle at 50% 60%, rgba(212, 175, 55, 0.06), transparent 50%),
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     background-attachment: fixed;
     @apply text-stone-100 antialiased selection:bg-amber-500/30 selection:text-amber-100;
   }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.lux-float {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.lux-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.lux-glass {
+  background: linear-gradient(145deg, rgba(20, 20, 28, 0.88) 0%, rgba(10, 10, 15, 0.94) 100%);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 24px 60px -15px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 0 rgba(251, 191, 36, 0.18);
+}
+
+.lux-gold-border {
+  border: 1px solid rgba(245, 158, 11, 0.24);
+}
+
+.lux-centurion-card {
+  background:
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.22), transparent 55%),
+    linear-gradient(135deg, #15141c 0%, #09090d 60%, #17130a 100%);
+  box-shadow:
+    0 25px 70px -15px rgba(217, 119, 6, 0.25),
+    inset 0 1px 0 0 rgba(253, 224, 71, 0.35);
 }
 
 /* Custom Luxury Scrollbar */
@@ -20,10 +70,10 @@
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090d;
+  background: #07070a;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #b48811 0%, #6b4f0a 100%);
+  background: linear-gradient(180deg, #d4af37 0%, #785a0e 100%);
   border-radius: 9999px;
 }
 

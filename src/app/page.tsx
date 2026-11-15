@@ -692,40 +692,76 @@ export default function MasarSaaSPage() {
       {/* Ambient Royal Gold Top Glow */}
       <div className="pointer-events-none fixed inset-x-0 top-0 h-96 bg-gradient-to-b from-amber-500/[0.07] via-amber-600/[0.02] to-transparent z-0" />
 
-      {/* Top Luxury Navbar */}
-      <header className="sticky top-0 z-30 border-b border-amber-500/20 bg-[#08080c]/85 backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
-          {/* Brand */}
+      {/* Top Architectural Floating Pill Navbar */}
+      <div className="sticky top-3 z-30 px-3 sm:px-6 pt-2">
+        <header className="max-w-7xl mx-auto rounded-2xl sm:rounded-full lux-glass border border-amber-500/30 px-4 sm:px-7 py-3 flex items-center justify-between gap-3">
+          {/* Brand Crest */}
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-200 via-amber-400 to-yellow-600 flex items-center justify-center shadow-[0_0_25px_rgba(217,119,6,0.4)] ring-1 ring-amber-200/60">
-              <Crown className="w-5 h-5 text-neutral-950 stroke-[2.2]" />
+            <div className="relative">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-yellow-600 flex items-center justify-center shadow-[0_0_30px_rgba(217,119,6,0.5)] ring-2 ring-amber-200/70">
+                <Crown className="w-5 h-5 text-neutral-950 stroke-[2.3]" />
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#08080c]" />
             </div>
             <div>
               <div className="flex items-center gap-2.5">
                 <span className="font-black text-xl sm:text-2xl tracking-tight bg-gradient-to-l from-amber-100 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
                   {isAr ? siteSettings.siteNameAr : siteSettings.siteNameEn}
                 </span>
-                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30 shadow-inner">
-                  {currentUser?.isAdmin ? "👑 الإدارة العليا (Owner)" : "✦ Harvard Executive"}
+                <span className="hidden md:inline-flex items-center gap-1 text-[10px] uppercase tracking-widest font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-200 border border-amber-400/35">
+                  {currentUser?.isAdmin ? "👑 OWNER SUITE" : "✦ EXECUTIVE EDITION"}
                 </span>
               </div>
-              <p className="text-xs text-stone-400 hidden sm:block mt-0.5">
+              <p className="text-[11px] text-stone-400 hidden sm:block">
                 {isAr
-                  ? "المنصة التنفيذية الفاخرة لصياغة السيرة الذاتية وتخطي الـ ATS"
-                  : "Prestigious Harvard ATS Executive Resume Suite"}
+                  ? "المنصة الملكية لصياغة السيرة الذاتية التنفيذية وتخطي الـ ATS"
+                  : "Prestigious Harvard ATS Executive Career Suite"}
               </p>
             </div>
           </div>
 
+          {/* Center Architectural Navigation Links (Desktop) */}
+          {(!currentUser?.isAdmin || adminViewMode === "app") && (
+            <nav className="hidden xl:flex items-center gap-1 px-2 py-1 rounded-full bg-[#07070a]/80 border border-stone-800/90 text-xs font-bold text-stone-300">
+              <a
+                href="#studio-workspace"
+                className="px-3.5 py-1.5 rounded-full hover:bg-amber-500/15 hover:text-amber-200 transition"
+              >
+                {isAr ? "استوديو الفحص" : "ATS Studio"}
+              </a>
+              <a
+                href="#harvard-pillars"
+                className="px-3.5 py-1.5 rounded-full hover:bg-amber-500/15 hover:text-amber-200 transition"
+              >
+                {isAr ? "معايير هارفارد" : "Harvard Standard"}
+              </a>
+              <a
+                href="#vip-packages"
+                className="px-3.5 py-1.5 rounded-full hover:bg-amber-500/15 hover:text-amber-200 transition"
+              >
+                {isAr ? "باقات العضوية VIP" : "VIP Membership"}
+              </a>
+              <button
+                type="button"
+                onClick={() =>
+                  supportSectionRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="px-3.5 py-1.5 rounded-full hover:bg-amber-500/15 hover:text-amber-200 transition"
+              >
+                {isAr ? "كونسيرج الدعم" : "Concierge"}
+              </button>
+            </nav>
+          )}
+
           {/* Right Controls */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             {currentUser?.isAdmin && (
-              <div className="flex items-center gap-1 p-1 rounded-2xl bg-[#111118] border border-amber-500/35 shadow-inner">
+              <div className="flex items-center gap-1 p-1 rounded-full bg-[#09090e] border border-amber-500/40">
                 <button
                   onClick={() => setAdminViewMode("admin")}
-                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-2 rounded-xl transition ${
+                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-1.5 rounded-full transition ${
                     adminViewMode === "admin"
-                      ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-md shadow-amber-500/20"
+                      ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-md"
                       : "text-stone-400 hover:text-amber-200"
                   }`}
                 >
@@ -739,14 +775,14 @@ export default function MasarSaaSPage() {
                 </button>
                 <button
                   onClick={() => setAdminViewMode("app")}
-                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-2 rounded-xl transition ${
+                  className={`flex items-center gap-1.5 text-xs font-extrabold px-3.5 py-1.5 rounded-full transition ${
                     adminViewMode === "app"
-                      ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-md shadow-amber-500/20"
+                      ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-md"
                       : "text-stone-400 hover:text-amber-200"
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>معاينة الموقع وأداة الـ CV</span>
+                  <span>معاينة منصة مسارك</span>
                 </button>
               </div>
             )}
@@ -754,14 +790,14 @@ export default function MasarSaaSPage() {
             {!currentUser?.isAdmin && (
               <>
                 {isUnlocked ? (
-                  <span className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                  <span className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300">
                     <Unlock className="w-3.5 h-3.5" />
-                    <span>{isAr ? "العضوية التنفيذية مفعلة ✓" : "Executive VIP Active ✓"}</span>
+                    <span>{isAr ? "عضوية مسارك VIP ✓" : "VIP Active ✓"}</span>
                   </span>
                 ) : currentUser?.paymentStatus === "pending" ? (
                   <button
                     onClick={() => setShowPricingModal(true)}
-                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-300"
+                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300"
                   >
                     <Clock className="w-3.5 h-3.5 animate-pulse" />
                     <span>{isAr ? "التحويل قيد المراجعة" : "Payment Pending"}</span>
@@ -769,12 +805,12 @@ export default function MasarSaaSPage() {
                 ) : (
                   <button
                     onClick={() => setShowPricingModal(true)}
-                    className="flex items-center gap-1.5 text-xs font-black px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 shadow-[0_6px_25px_rgba(217,119,6,0.35)] transition"
+                    className="flex items-center gap-1.5 text-xs font-black px-4 py-2 rounded-full bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 shadow-[0_6px_25px_rgba(217,119,6,0.4)] transition"
                   >
-                    <Smartphone className="w-3.5 h-3.5" />
+                    <Crown className="w-3.5 h-3.5" />
                     <span>
                       {isAr
-                        ? `تفعيل العضوية بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
+                        ? `ترقية VIP (${siteSettings.singlePlanPriceEgp} ج.م)`
                         : `VIP Unlock (${siteSettings.singlePlanPriceEgp} EGP)`}
                     </span>
                   </button>
@@ -783,14 +819,14 @@ export default function MasarSaaSPage() {
             )}
 
             {currentUser ? (
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#12121a] border border-amber-500/25 text-amber-100">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-bold px-3.5 py-2 rounded-full bg-[#09090e] border border-amber-500/30 text-amber-100">
                   ✦ {currentUser.identifier}
                 </span>
                 <button
                   onClick={handleLogout}
                   title="تسجيل الخروج"
-                  className="p-2.5 rounded-xl bg-[#12121a] hover:bg-rose-950/60 text-stone-400 hover:text-rose-300 border border-stone-800 transition"
+                  className="p-2 rounded-full bg-[#09090e] hover:bg-rose-950/60 text-stone-400 hover:text-rose-300 border border-stone-800 transition"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -801,39 +837,25 @@ export default function MasarSaaSPage() {
                   setAuthMode("login");
                   setShowAuthModal(true);
                 }}
-                className="flex items-center gap-1.5 text-xs font-bold px-4 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-amber-100 border border-amber-500/30 transition shadow-sm"
+                className="flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full bg-[#09090e] hover:bg-[#151520] text-amber-100 border border-amber-500/35 transition"
               >
                 <UserCheck className="w-3.5 h-3.5 text-amber-400" />
-                <span>{isAr ? "تسجيل دخول / حساب جديد" : "Login / Sign Up"}</span>
-              </button>
-            )}
-
-            {!currentUser?.isAdmin && (
-              <button
-                onClick={() =>
-                  supportSectionRef.current?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-stone-300 border border-stone-800 hover:border-amber-500/30 transition"
-              >
-                <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
-                <span className="hidden md:inline">
-                  {isAr ? "خدمة العملاء" : "Support"}
-                </span>
+                <span>{isAr ? "دخول / عضوية جديدة" : "Sign In"}</span>
               </button>
             )}
 
             {!currentUser?.isAdmin && (
               <button
                 onClick={() => setUiLang(isAr ? "en" : "ar")}
-                className="flex items-center gap-1 text-xs font-semibold px-3 py-2.5 rounded-xl bg-[#12121a] hover:bg-[#191924] text-stone-300 border border-stone-800 hover:border-amber-500/30 transition"
+                className="flex items-center gap-1 text-xs font-bold px-3 py-2 rounded-full bg-[#09090e] hover:bg-[#151520] text-stone-300 border border-stone-800 transition"
               >
                 <Globe className="w-3.5 h-3.5 text-amber-400" />
                 <span>{isAr ? "EN" : "عربي"}</span>
               </button>
             )}
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* ===================================================================== */}
       {/* TOTAL-CONTROL ADMIN DASHBOARD (When logged in as karemaboelnsr9@gmail.com) */}
@@ -1648,213 +1670,480 @@ export default function MasarSaaSPage() {
         </main>
       ) : (
         /* ===================================================================== */
-        /* NORMAL USER CV SAAS VIEW                                              */
+        /* NORMAL USER CV SAAS VIEW — ARCHITECTURAL LUXURY EDITION               */
         /* ===================================================================== */
-        <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10 space-y-12">
-          {/* Hero Section */}
-          <section className="text-center max-w-4xl mx-auto space-y-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs font-semibold shadow-[0_0_25px_rgba(217,119,6,0.15)]">
-              <Crown className="w-3.5 h-3.5 text-amber-400" />
-              <span>
-                {isAr
-                  ? siteSettings.announcementAr
-                  : "75% of resumes are rejected by ATS bots before a human recruiter ever sees them"}
-              </span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-stone-100 leading-[1.2]">
-              {isAr ? (
-                <>
-                  {siteSettings.heroTitleAr}{" "}
-                  <span className="bg-gradient-to-l from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-sm">
-                    {siteSettings.heroHighlightAr}
-                  </span>
-                </>
-              ) : (
-                <>
-                  See Why ATS Rejects Your CV &{" "}
-                  <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
-                    Download a Harvard Executive 96%-Match Resume
-                  </span>
-                </>
-              )}
-            </h1>
-
-            <p className="text-stone-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-              {isAr
-                ? siteSettings.heroSubtitleAr
-                : "Scan your current CV score for free in 10 seconds, and get a full-page Harvard Executive ATS-optimized PDF resume."}
-            </p>
-
-            {/* Quick Sample Loader Pills */}
-            <div className="pt-2 flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-xs text-stone-400 font-semibold">
-                {isAr ? "✦ جرب بمثال تنفيذي جاهز بضغطة واحدة:" : "✦ Try a 1-click executive sample:"}
-              </span>
-              {SAMPLE_PRESETS.map((preset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => handleLoadPreset(preset.id)}
-                  className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-[#111118] hover:bg-amber-500/15 text-stone-300 hover:text-amber-200 border border-amber-500/20 hover:border-amber-400/50 transition shadow-sm"
-                >
-                  {isAr ? preset.labelAr : preset.labelEn}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* Dual Input Workspace */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-[#101017]/90 backdrop-blur-xl border border-amber-500/20 hover:border-amber-500/35 p-6 flex flex-col space-y-4 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)] transition">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="font-extrabold text-sm sm:text-base text-stone-100">
-                      {isAr ? "1. سيرتك الذاتية الحالية (CV)" : "1. Your Current Resume / CV"}
-                    </h2>
-                    <p className="text-xs text-stone-400">
-                      {isAr
-                        ? "ارفع ملف PDF أو الصق نص الـ CV هنا"
-                        : "Upload a PDF file or paste your resume text below"}
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept=".pdf,.txt"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border border-amber-400/30 transition"
-                  >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>{isAr ? "رفع ملف PDF / نص" : "Upload PDF / TXT"}</span>
-                  </button>
-                </div>
-              </div>
-
-              {pdfFileName && (
-                <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs">
-                  <span>
-                    {isAr ? `تم إرفاق الملف: ${pdfFileName}` : `Attached file: ${pdfFileName}`}
-                  </span>
-                  <button
-                    onClick={() => {
-                      setPdfBase64("");
-                      setPdfFileName("");
-                    }}
-                    className="underline hover:text-white"
-                  >
-                    {isAr ? "إزالة" : "Remove"}
-                  </button>
-                </div>
-              )}
-
-              <textarea
-                value={cvText}
-                onChange={(e) => setCvText(e.target.value)}
-                rows={9}
-                dir="auto"
-                className="w-full rounded-2xl bg-[#08080c] border border-stone-800/90 focus:border-amber-400/70 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono shadow-inner"
-              />
-            </div>
-
-            <div className="rounded-3xl bg-[#101017]/90 backdrop-blur-xl border border-amber-500/20 hover:border-amber-500/35 p-6 flex flex-col space-y-4 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)] transition">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 shadow-inner">
-                    <Briefcase className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="font-extrabold text-sm sm:text-base text-stone-100">
-                      {isAr
-                        ? "2. وصف الوظيفة المستهدفة (Job Description)"
-                        : "2. Target Job Description"}
-                    </h2>
-                    <p className="text-xs text-stone-400">
-                      {isAr
-                        ? "انسخ تفاصيل ومتطلبات الوظيفة من LinkedIn أو Wuzzuf"
-                        : "Paste the job requirements from LinkedIn, Wuzzuf, or Indeed"}
-                    </p>
-                  </div>
-                </div>
-                <span className="text-[11px] font-bold text-amber-300 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25">
-                  {isAr ? "✦ معيار هارفارد ATS" : "✦ Harvard ATS Standard"}
+        <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-16">
+          {/* 1. ASYMMETRIC 12-COLUMN SPLIT EXECUTIVE HERO */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2">
+            {/* Right/Main Editorial Column (7 Cols) */}
+            <div className="lg:col-span-7 space-y-6 text-right">
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/15 via-amber-400/10 to-transparent border border-amber-400/35 text-amber-200 text-xs font-bold shadow-[0_0_30px_rgba(217,119,6,0.18)]">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+                <Crown className="w-3.5 h-3.5 text-amber-300" />
+                <span>
+                  {isAr
+                    ? siteSettings.announcementAr
+                    : "75% of resumes are rejected by ATS bots before a human recruiter ever sees them"}
                 </span>
               </div>
 
-              <textarea
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                rows={9}
-                dir="auto"
-                className="w-full rounded-2xl bg-[#08080c] border border-stone-800/90 focus:border-amber-400/70 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono shadow-inner"
-              />
+              <h1 className="text-3xl sm:text-5xl xl:text-[54px] font-black tracking-tight text-stone-100 leading-[1.22]">
+                {isAr ? (
+                  <>
+                    {siteSettings.heroTitleAr}
+                    <span className="block mt-2 bg-gradient-to-l from-amber-100 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
+                      {siteSettings.heroHighlightAr}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    See Why ATS Rejects Your CV &{" "}
+                    <span className="block mt-2 bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
+                      Download a Harvard Executive 96%-Match Resume
+                    </span>
+                  </>
+                )}
+              </h1>
+
+              <p className="text-stone-300/90 text-sm sm:text-base leading-relaxed max-w-2xl">
+                {isAr
+                  ? siteSettings.heroSubtitleAr
+                  : "Scan your current CV score for free in 10 seconds, and get a full-page Harvard Executive ATS-optimized PDF resume."}
+              </p>
+
+              {/* Hero Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-1">
+                <a
+                  href="#studio-workspace"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm sm:text-base shadow-[0_12px_40px_rgba(217,119,6,0.4)] transition"
+                >
+                  <Sparkles className="w-5 h-5" />
+                  <span>
+                    {isAr
+                      ? "ابدأ الفحص المجاني لسيرتك الذاتية"
+                      : "Start Free Executive ATS Audit"}
+                  </span>
+                </a>
+                <a
+                  href="#vip-packages"
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl lux-glass border border-amber-500/30 hover:border-amber-400/60 text-amber-200 font-bold text-sm transition"
+                >
+                  <Crown className="w-4 h-4 text-amber-400" />
+                  <span>
+                    {isAr
+                      ? `باقات مسارك VIP (تبدأ من ${siteSettings.singlePlanPriceEgp} ج.م)`
+                      : `VIP Plans (From ${siteSettings.singlePlanPriceEgp} EGP)`}
+                  </span>
+                </a>
+              </div>
+
+              {/* 3 Architectural Executive Stat Tiles */}
+              <div className="grid grid-cols-3 gap-3 pt-3">
+                <div className="rounded-2xl lux-glass border border-amber-500/20 p-3.5">
+                  <div className="text-xl sm:text-2xl font-black bg-gradient-to-l from-amber-200 to-yellow-500 bg-clip-text text-transparent">
+                    96.4%
+                  </div>
+                  <div className="text-[11px] text-stone-400 font-semibold mt-0.5">
+                    {isAr ? "نسبة تخطي فلاتر الـ ATS" : "ATS Pass Rate"}
+                  </div>
+                </div>
+                <div className="rounded-2xl lux-glass border border-amber-500/20 p-3.5">
+                  <div className="text-xl sm:text-2xl font-black text-stone-100">
+                    Harvard
+                  </div>
+                  <div className="text-[11px] text-stone-400 font-semibold mt-0.5">
+                    {isAr ? "معيار صياغة السيرة التنفيذية" : "Executive CV Standard"}
+                  </div>
+                </div>
+                <div className="rounded-2xl lux-glass border border-amber-500/20 p-3.5">
+                  <div className="text-xl sm:text-2xl font-black text-emerald-400">
+                    10 ثوانٍ
+                  </div>
+                  <div className="text-[11px] text-stone-400 font-semibold mt-0.5">
+                    {isAr ? "سرعة الفحص وإعادة البناء" : "Instant AI Rebuild"}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Left Column (5 Cols): Floating 3D Executive Transformation Showcase */}
+            <div className="lg:col-span-5 relative">
+              <div className="absolute -inset-4 rounded-[32px] bg-gradient-to-tr from-amber-500/20 via-yellow-500/5 to-transparent blur-2xl pointer-events-none lux-glow" />
+              <div className="relative rounded-[28px] lux-centurion-card border border-amber-400/40 p-6 space-y-5 lux-float">
+                {/* Top Card Ribbon */}
+                <div className="flex items-center justify-between border-b border-amber-500/20 pb-3.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-amber-400/20 border border-amber-400/50 flex items-center justify-center text-amber-300">
+                      <Award className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-amber-100 block">
+                        {isAr ? "معاينة التحول التنفيذي" : "Executive Transformation"}
+                      </span>
+                      <span className="text-[10px] text-amber-300/80 font-mono">
+                        HARVARD XYZ STANDARD // A4 PDF
+                      </span>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-black">
+                    ✓ معتمد للـ ATS
+                  </span>
+                </div>
+
+                {/* Before vs After Visual Meter */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-[#07070a]/90 border border-rose-500/30 p-3.5 space-y-2">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-rose-300 font-bold">قبل مسارك</span>
+                      <span className="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold">
+                        مرفوض آلياً
+                      </span>
+                    </div>
+                    <div className="text-2xl font-black text-rose-400">38%</div>
+                    <div className="w-full h-1.5 rounded-full bg-stone-800 overflow-hidden">
+                      <div className="w-[38%] h-full bg-rose-500 rounded-full" />
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl bg-gradient-to-br from-amber-500/20 to-[#07070a] border border-amber-400/50 p-3.5 space-y-2 shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-amber-200 font-bold">بعد مسارك VIP</span>
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                        أولوية قصوى
+                      </span>
+                    </div>
+                    <div className="text-2xl font-black text-amber-300">96%</div>
+                    <div className="w-full h-1.5 rounded-full bg-stone-800 overflow-hidden">
+                      <div className="w-[96%] h-full bg-gradient-to-r from-amber-300 to-emerald-400 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mini Simulated Executive Document Sheet */}
+                <div className="rounded-2xl bg-white text-slate-900 p-4 shadow-xl space-y-2.5 text-left" dir="ltr">
+                  <div className="border-b border-slate-300 pb-2 flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-black tracking-wide uppercase text-slate-900">
+                        AHMED AL-MANSOUR
+                      </div>
+                      <div className="text-[10px] font-bold text-amber-700">
+                        Senior Executive Leader • Harvard ATS Format
+                      </div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded bg-slate-900 text-amber-300 text-[9px] font-bold">
+                      A4 READY
+                    </span>
+                  </div>
+                  <div className="space-y-1 text-[10px] text-slate-700 leading-snug">
+                    <div className="font-bold text-slate-900">
+                      • Spearheaded $4.2M digital transformation across 3 MENA markets, boosting ROI by 47%.
+                    </div>
+                    <div>
+                      • Engineered ATS-aligned core competency matrix with 18 target role keywords.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Trust Footer inside Card */}
+                <div className="flex items-center justify-between text-[11px] text-stone-300 pt-1">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+                    <span>3 قوالب عالمية (Harvard / Corporate / Tech)</span>
+                  </span>
+                  <span className="text-amber-300 font-bold">PDF فوري</span>
+                </div>
+              </div>
             </div>
           </section>
 
-          {errorMsg && (
-            <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm text-center">
-              {errorMsg}
+          {/* 2. ARCHITECTURAL 3-PILLAR BENTO GRID ("لماذا مسارك؟") */}
+          <section id="harvard-pillars" className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-amber-500/20 pb-4">
+              <div>
+                <span className="text-xs font-extrabold uppercase tracking-widest text-amber-400 block mb-1">
+                  ✦ THE MASARAK EXECUTIVE STANDARD
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-stone-100">
+                  {isAr
+                    ? "لماذا يتفوق مشتركو منصة مسارك في مقابلات العمل؟"
+                    : "Why Masarak Members Dominate Executive Shortlists"}
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm text-stone-400 max-w-md">
+                {isAr
+                  ? "هندسة متكاملة تعيد بناء خبراتك بلغة الأرقام والقيادة التي تبحث عنها خوارزميات التوظيف ومديرو الـ HR."
+                  : "Engineered with Harvard Business School resume architecture."}
+              </p>
             </div>
-          )}
 
-          {/* Primary Luxury Analyze CTA */}
-          <div className="flex flex-col items-center justify-center space-y-2">
-            <button
-              onClick={() => runAnalysis()}
-              disabled={isAnalyzing}
-              className="group relative inline-flex items-center justify-center gap-3 px-10 py-4.5 rounded-2xl font-black text-base sm:text-lg text-neutral-950 bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 shadow-[0_10px_40px_rgba(217,119,6,0.4)] ring-1 ring-amber-200/60 disabled:opacity-60 transition-all cursor-pointer"
-            >
-              <Sparkles className={`w-5 h-5 ${isAnalyzing ? "animate-spin" : ""}`} />
-              <span>
-                {isAnalyzing
-                  ? isAr
-                    ? "جاري فحص الـ ATS وبناء السيرة الذاتية التنفيذية..."
-                    : "Scanning ATS & Building Harvard Executive CV..."
-                  : isAr
-                  ? "افحص سيرتك الذاتية وابنِ النسخة التنفيذية الآن"
-                  : "Scan My Resume & Build Harvard Executive CV"}
-              </span>
-            </button>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="rounded-3xl lux-glass lux-gold-border p-6 space-y-3 relative overflow-hidden group hover:border-amber-400/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                    الركيزة 01
+                  </span>
+                  <Zap className="w-5 h-5 text-amber-400" />
+                </div>
+                <h3 className="text-lg font-extrabold text-stone-100">
+                  {isAr ? "كشف الكلمات المفتاحية المخفية" : "Deep ATS Keyword Extraction"}
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+                  {isAr
+                    ? "يطابق مسارك سيرتك الذاتية مع وصف الوظيفة كلمة بكلمة، ويكشف لك المهارات التقنية والقيادية الناقصة التي تتسبب في استبعادك آلياً."
+                    : "Pinpoints exact technical and leadership keywords missing from your CV."}
+                </p>
+              </div>
 
-          {/* Results Dashboard */}
+              <div className="rounded-3xl lux-glass lux-gold-border p-6 space-y-3 relative overflow-hidden group hover:border-amber-400/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                    الركيزة 02
+                  </span>
+                  <Crown className="w-5 h-5 text-amber-400" />
+                </div>
+                <h3 className="text-lg font-extrabold text-stone-100">
+                  {isAr ? "صياغة هارفارد التنفيذية (XYZ)" : "Harvard XYZ Metric Rewriting"}
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+                  {isAr
+                    ? "نحول المهام العادية في خبراتك إلى إنجازات قياسية مدعومة بالنسب المئوية ومؤشرات الأداء في صفحة A4 تنفيذية متكاملة."
+                    : "Transforms passive duties into high-impact quantified executive achievements."}
+                </p>
+              </div>
+
+              <div className="rounded-3xl lux-glass lux-gold-border p-6 space-y-3 relative overflow-hidden group hover:border-amber-400/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                    الركيزة 03
+                  </span>
+                  <Award className="w-5 h-5 text-amber-400" />
+                </div>
+                <h3 className="text-lg font-extrabold text-stone-100">
+                  {isAr ? "حقيبة القبول الكاملة (3 في 1)" : "Complete Executive Career Kit"}
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+                  {isAr
+                    ? "تحصل فوراً على السيرة الذاتية بـ 3 قوالب عالمية جاهزة للطباعة PDF + خطاب التقديم الرسمي + إجابات نموذجية لأسئلة الإنترفيو."
+                    : "Includes 3 A4 PDF templates, tailored Cover Letter, LinkedIn DM, and Interview Prep."}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* 3. UNIFIED MASARAK EXECUTIVE STUDIO WORKSPACE */}
+          <section
+            id="studio-workspace"
+            className="rounded-[32px] lux-glass border-2 border-amber-500/30 p-5 sm:p-8 space-y-6 relative overflow-hidden"
+          >
+            {/* Studio Top Architectural Bar */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-amber-500/20">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-200 via-amber-400 to-yellow-600 flex items-center justify-center text-neutral-950 shadow-lg">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-amber-300 block">
+                    MASARAK STUDIO // HARVARD ATS ENGINE
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-black text-stone-100">
+                    {isAr
+                      ? "استوديو الفحص وإعادة الصياغة التنفيذية"
+                      : "Masarak Executive ATS Audit & Rebuild Studio"}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Quick Sample Loader Pills inside Studio Header */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-amber-200/90 font-bold">
+                  {isAr ? "✦ تجربة فورية بمثال جاهز:" : "✦ Load Sample:"}
+                </span>
+                {SAMPLE_PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => handleLoadPreset(preset.id)}
+                    className="text-xs font-bold px-3.5 py-1.5 rounded-full bg-[#07070a] hover:bg-amber-500/20 text-stone-200 hover:text-amber-200 border border-amber-500/30 transition"
+                  >
+                    {isAr ? preset.labelAr : preset.labelEn}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Dual Studio Panels */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Panel 01: Current CV */}
+              <div className="rounded-2xl bg-[#07070a]/90 border border-amber-500/25 p-5 flex flex-col space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-xl bg-amber-400 text-neutral-950 font-black text-xs flex items-center justify-center shadow">
+                      01
+                    </span>
+                    <div>
+                      <h3 className="font-extrabold text-sm sm:text-base text-stone-100">
+                        {isAr ? "سيرتك الذاتية الحالية (CV)" : "Your Current Resume / CV"}
+                      </h3>
+                      <p className="text-[11px] text-stone-400">
+                        {isAr
+                          ? "ارفع ملف الـ PDF الخاص بك أو الصق محتوى الـ CV"
+                          : "Upload a PDF file or paste your resume text"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".pdf,.txt"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="flex items-center gap-1.5 text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-amber-300/20 to-yellow-500/20 hover:from-amber-300/30 hover:to-yellow-500/30 text-amber-200 border border-amber-400/40 transition"
+                    >
+                      <Upload className="w-3.5 h-3.5 text-amber-300" />
+                      <span>{isAr ? "رفع ملف PDF / TXT" : "Upload PDF / TXT"}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {pdfFileName && (
+                  <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                    <span>
+                      {isAr ? `📄 الملف المرفوع: ${pdfFileName}` : `Attached: ${pdfFileName}`}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setPdfBase64("");
+                        setPdfFileName("");
+                      }}
+                      className="underline hover:text-white"
+                    >
+                      {isAr ? "إزالة" : "Remove"}
+                    </button>
+                  </div>
+                )}
+
+                <textarea
+                  value={cvText}
+                  onChange={(e) => setCvText(e.target.value)}
+                  rows={9}
+                  dir="auto"
+                  placeholder={
+                    isAr
+                      ? "الصق نص السيرة الذاتية الحالية هنا أو اضغط على زر (رفع ملف PDF)..."
+                      : "Paste your current resume text here..."
+                  }
+                  className="w-full rounded-xl bg-[#040406] border border-stone-800 focus:border-amber-400 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono"
+                />
+              </div>
+
+              {/* Panel 02: Target Job Description */}
+              <div className="rounded-2xl bg-[#07070a]/90 border border-amber-500/25 p-5 flex flex-col space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-xl bg-amber-400 text-neutral-950 font-black text-xs flex items-center justify-center shadow">
+                      02
+                    </span>
+                    <div>
+                      <h3 className="font-extrabold text-sm sm:text-base text-stone-100">
+                        {isAr
+                          ? "وصف الوظيفة المستهدفة (Job Description)"
+                          : "Target Job Description"}
+                      </h3>
+                      <p className="text-[11px] text-stone-400">
+                        {isAr
+                          ? "انسخ شروط وتفاصيل الوظيفة من LinkedIn أو Wuzzuf"
+                          : "Paste the job requirements from LinkedIn or Wuzzuf"}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-extrabold text-amber-200 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30">
+                    {isAr ? "✦ مطابقة ذكية 100%" : "✦ AI Role Match"}
+                  </span>
+                </div>
+
+                <textarea
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  rows={9}
+                  dir="auto"
+                  placeholder={
+                    isAr
+                      ? "الصق المسمى الوظيفي ومتطلبات الوظيفة هنا..."
+                      : "Paste target job description here..."
+                  }
+                  className="w-full rounded-xl bg-[#040406] border border-stone-800 focus:border-amber-400 focus:outline-none p-4 text-xs sm:text-sm text-stone-200 leading-relaxed resize-y font-mono"
+                />
+              </div>
+            </div>
+
+            {errorMsg && (
+              <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm text-center font-bold">
+                {errorMsg}
+              </div>
+            )}
+
+            {/* Studio Command Bar */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#07070a]/90 border border-amber-500/25 rounded-2xl p-4">
+              <div className="flex items-center gap-3 text-xs text-stone-300">
+                <Shield className="w-5 h-5 text-amber-400 shrink-0" />
+                <span>
+                  {isAr
+                    ? "فحص مجاني فوري لدرجة الـ ATS مع إعادة بناء شاملة للسيرة الذاتية بمعيار جامعة هارفارد."
+                    : "Instant free ATS score audit and full Harvard Executive resume reconstruction."}
+                </span>
+              </div>
+
+              <button
+                onClick={() => runAnalysis()}
+                disabled={isAnalyzing}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl font-black text-sm sm:text-base text-neutral-950 bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 shadow-[0_10px_35px_rgba(217,119,6,0.45)] disabled:opacity-60 transition cursor-pointer shrink-0"
+              >
+                <Sparkles className={`w-5 h-5 ${isAnalyzing ? "animate-spin" : ""}`} />
+                <span>
+                  {isAnalyzing
+                    ? isAr
+                      ? "جاري هندسة السيرة الذاتية التنفيذية..."
+                      : "Building Harvard Executive CV..."
+                    : isAr
+                    ? "افحص السيرة الذاتية وابنِ النسخة التنفيذية الآن"
+                    : "Scan & Build Harvard Executive CV"}
+                </span>
+              </button>
+            </div>
+          </section>
+
+          {/* 4. RESULTS DASHBOARD (EXECUTIVE BENTO & A4 PREVIEW) */}
           {result && editableCv && (
             <section ref={resultsRef} className="pt-4 space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-amber-500/20">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-3 rounded-2xl lux-glass border border-amber-500/30">
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
                   <button
                     onClick={() => setActiveTab("ats-report")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition ${
                       activeTab === "ats-report"
-                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
-                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg"
+                        : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <AlertTriangle className="w-4 h-4" />
                     <span>
                       {isAr
-                        ? `1. تقرير الفحص (${result.atsScore}%)`
+                        ? `1. تشخيص الـ ATS (${result.atsScore}%)`
                         : `1. ATS Audit (${result.atsScore}%)`}
                     </span>
                   </button>
 
                   <button
                     onClick={() => setActiveTab("rewritten-cv")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition ${
                       activeTab === "rewritten-cv"
-                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
-                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg"
+                        : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <Award className="w-4 h-4" />
@@ -1868,10 +2157,10 @@ export default function MasarSaaSPage() {
 
                   <button
                     onClick={() => setActiveTab("cover-letter")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition ${
                       activeTab === "cover-letter"
-                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
-                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg"
+                        : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <Briefcase className="w-4 h-4" />
@@ -1883,10 +2172,10 @@ export default function MasarSaaSPage() {
 
                   <button
                     onClick={() => setActiveTab("interview-prep")}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
+                    className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition ${
                       activeTab === "interview-prep"
-                        ? "bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg shadow-amber-500/25"
-                        : "bg-[#111118] text-stone-400 hover:text-amber-200 border border-stone-800"
+                        ? "bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 shadow-lg"
+                        : "bg-[#08080c] text-stone-400 hover:text-amber-200 border border-stone-800"
                     }`}
                   >
                     <HelpCircle className="w-4 h-4" />
@@ -1900,13 +2189,13 @@ export default function MasarSaaSPage() {
               {activeTab === "ats-report" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="rounded-3xl bg-[#101017]/95 border border-amber-500/25 p-6 flex flex-col justify-between space-y-5 shadow-xl">
+                    <div className="rounded-3xl lux-centurion-card border border-amber-400/40 p-6 flex flex-col justify-between space-y-5">
                       <div className="grid grid-cols-2 gap-3 text-center">
-                        <div className="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/30 flex flex-col items-center justify-center space-y-1">
+                        <div className="p-4 rounded-2xl bg-[#07070a]/90 border border-rose-500/35 flex flex-col items-center justify-center space-y-1">
                           <span className="text-[11px] font-bold text-rose-300">
                             {isAr ? "الـ CV الحالي" : "Current CV"}
                           </span>
-                          <span className="text-3xl font-extrabold text-rose-400">
+                          <span className="text-3xl font-black text-rose-400">
                             {result.atsScore}%
                           </span>
                           <span className="text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-semibold">
@@ -1914,14 +2203,14 @@ export default function MasarSaaSPage() {
                           </span>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/40 flex flex-col items-center justify-center space-y-1">
+                        <div className="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/50 flex flex-col items-center justify-center space-y-1">
                           <span className="text-[11px] font-bold text-amber-200">
                             {isAr ? "نسخة مسارك التنفيذية" : "Masarak Executive"}
                           </span>
-                          <span className="text-3xl font-extrabold text-amber-300">
+                          <span className="text-3xl font-black text-amber-300">
                             {result.optimizedScore}%
                           </span>
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 font-semibold">
+                          <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">
                             {isAr ? "✅ يتخطى الـ ATS" : "✅ ATS Ready"}
                           </span>
                         </div>
@@ -1935,7 +2224,7 @@ export default function MasarSaaSPage() {
 
                       <button
                         onClick={() => setActiveTab("rewritten-cv")}
-                        className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition"
+                        className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition"
                       >
                         <span>
                           {isAr
@@ -1946,12 +2235,12 @@ export default function MasarSaaSPage() {
                       </button>
                     </div>
 
-                    <div className="lg:col-span-2 rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-6 shadow-xl">
+                    <div className="lg:col-span-2 rounded-3xl lux-glass border border-amber-500/25 p-6 space-y-6">
                       <div>
                         <h3 className="font-bold text-base text-amber-200 mb-2">
                           {isAr ? "تشخيص نظام الفرز الآلي (ATS)" : "ATS Bot Diagnostic"}
                         </h3>
-                        <p className="text-sm text-stone-200 leading-relaxed bg-[#08080c] border border-amber-500/25 p-4 rounded-2xl">
+                        <p className="text-sm text-stone-200 leading-relaxed bg-[#07070a] border border-amber-500/25 p-4 rounded-2xl">
                           {result.executiveFeedback}
                         </p>
                       </div>
@@ -1985,7 +2274,7 @@ export default function MasarSaaSPage() {
                         ].map((item, i) => (
                           <div
                             key={i}
-                            className="p-3.5 rounded-2xl bg-[#08080c] border border-stone-800 space-y-2"
+                            className="p-3.5 rounded-2xl bg-[#07070a] border border-stone-800 space-y-2"
                           >
                             <div className="flex items-center justify-between text-xs font-semibold">
                               <span className="text-stone-300">{item.label}</span>
@@ -2004,7 +2293,7 @@ export default function MasarSaaSPage() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-3xl bg-[#101017]/90 border border-stone-800 p-5 space-y-3">
+                    <div className="rounded-3xl lux-glass border border-stone-800 p-5 space-y-3">
                       <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
                         <CheckCircle2 className="w-4 h-4" />
                         <span>
@@ -2025,7 +2314,7 @@ export default function MasarSaaSPage() {
                       </div>
                     </div>
 
-                    <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/30 p-5 space-y-3">
+                    <div className="rounded-3xl lux-glass border border-amber-500/30 p-5 space-y-3">
                       <div className="flex items-center gap-2 text-amber-300 font-bold text-sm">
                         <AlertTriangle className="w-4 h-4" />
                         <span>
@@ -2048,7 +2337,7 @@ export default function MasarSaaSPage() {
                         {!isUnlocked && result.lockedMissingKeywordsCount > 0 && (
                           <button
                             onClick={() => setShowPricingModal(true)}
-                            className="flex items-center gap-1.5 text-xs font-black px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-300 to-yellow-500 hover:brightness-110 text-neutral-950 transition cursor-pointer shadow-md"
+                            className="flex items-center gap-1.5 text-xs font-black px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-200 to-yellow-500 hover:brightness-110 text-neutral-950 transition cursor-pointer shadow-md"
                           >
                             <Lock className="w-3.5 h-3.5" />
                             <span>
@@ -2070,7 +2359,7 @@ export default function MasarSaaSPage() {
               {activeTab === "rewritten-cv" && (
                 <div className="space-y-5 relative">
                   {/* Toolbar: Template Switcher + Edit + Print PDF */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#101017] border border-amber-500/25">
+                  <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl lux-glass border border-amber-500/30">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-xs font-bold text-amber-200 flex items-center gap-1.5">
                         <LayoutTemplate className="w-4 h-4 text-amber-400" />
@@ -2129,7 +2418,7 @@ export default function MasarSaaSPage() {
 
                       <button
                         onClick={handlePrintPdf}
-                        className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 text-xs sm:text-sm font-black shadow-lg shadow-amber-500/25 transition"
+                        className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 text-xs sm:text-sm font-black shadow-lg shadow-amber-500/25 transition"
                       >
                         {isUnlocked ? (
                           <Download className="w-4 h-4" />
@@ -2151,7 +2440,7 @@ export default function MasarSaaSPage() {
 
                   {/* Full Inline Editor Drawer */}
                   {isUnlocked && isEditingCv && (
-                    <div className="p-5 rounded-2xl bg-[#101017] border border-amber-500/40 space-y-4">
+                    <div className="p-5 rounded-2xl lux-glass border border-amber-500/40 space-y-4">
                       <h4 className="text-xs font-bold text-amber-300">
                         {isAr
                           ? "تعديل بيانات السيرة الذاتية مباشرة قبل الطباعة والتحميل:"
@@ -2519,8 +2808,8 @@ export default function MasarSaaSPage() {
 
                     {/* Floating Luxury Paywall Overlay when Locked */}
                     {!isUnlocked && (
-                      <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-[#07070a] via-[#07070a]/90 to-transparent flex items-center justify-center p-4">
-                        <div className="bg-[#101017]/95 backdrop-blur-xl border-2 border-amber-400/70 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+                      <div className="absolute inset-x-0 bottom-0 top-48 bg-gradient-to-t from-[#050507] via-[#050507]/90 to-transparent flex items-center justify-center p-4">
+                        <div className="lux-centurion-card border-2 border-amber-400/80 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-center space-y-4 shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
                           <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center mx-auto text-amber-300">
                             <Crown className="w-6 h-6" />
                           </div>
@@ -2536,7 +2825,7 @@ export default function MasarSaaSPage() {
                           </p>
                           <button
                             onClick={() => setShowPricingModal(true)}
-                            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/25 transition"
+                            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-sm shadow-xl shadow-amber-500/25 transition"
                           >
                             {isAr
                               ? `افتح القفل الآن بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
@@ -2552,7 +2841,7 @@ export default function MasarSaaSPage() {
               {/* TAB 3 & TAB 4 */}
               {(activeTab === "cover-letter" || activeTab === "interview-prep") &&
                 !isUnlocked && (
-                  <div className="rounded-3xl bg-[#101017] border-2 border-amber-400/50 p-8 text-center max-w-xl mx-auto space-y-4 shadow-2xl">
+                  <div className="rounded-3xl lux-centurion-card border-2 border-amber-400/50 p-8 text-center max-w-xl mx-auto space-y-4 shadow-2xl">
                     <Crown className="w-10 h-10 text-amber-400 mx-auto" />
                     <h3 className="text-xl font-black text-amber-100">
                       {isAr
@@ -2561,7 +2850,7 @@ export default function MasarSaaSPage() {
                     </h3>
                     <button
                       onClick={() => setShowPricingModal(true)}
-                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 text-neutral-950 font-black text-sm shadow-lg"
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 font-black text-sm shadow-lg"
                     >
                       {isAr
                         ? `تفعيل الاشتراك بـ فودافون كاش (${siteSettings.singlePlanPriceEgp} ج.م)`
@@ -2572,7 +2861,7 @@ export default function MasarSaaSPage() {
 
               {activeTab === "cover-letter" && isUnlocked && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-4 flex flex-col">
+                  <div className="rounded-3xl lux-glass border border-amber-500/25 p-6 space-y-4 flex flex-col">
                     <div className="flex items-center justify-between">
                       <h3 className="font-bold text-base text-amber-200">
                         {isAr
@@ -2593,13 +2882,13 @@ export default function MasarSaaSPage() {
                     </div>
                     <pre
                       dir="auto"
-                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#08080c] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
+                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#07070a] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
                     >
                       {result.coverLetter}
                     </pre>
                   </div>
 
-                  <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-4 flex flex-col">
+                  <div className="rounded-3xl lux-glass border border-amber-500/25 p-6 space-y-4 flex flex-col">
                     <div className="flex items-center justify-between">
                       <h3 className="font-bold text-base text-amber-200">
                         {isAr
@@ -2620,7 +2909,7 @@ export default function MasarSaaSPage() {
                     </div>
                     <pre
                       dir="auto"
-                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#08080c] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
+                      className="flex-1 whitespace-pre-wrap rounded-2xl bg-[#07070a] border border-stone-800 p-4 text-xs sm:text-sm text-stone-200 font-sans leading-relaxed"
                     >
                       {result.linkedinMessage}
                     </pre>
@@ -2633,13 +2922,13 @@ export default function MasarSaaSPage() {
                   {result.interviewPrep.map((item, idx) => (
                     <div
                       key={idx}
-                      className="rounded-3xl bg-[#101017]/90 border border-amber-500/20 p-6 space-y-3"
+                      className="rounded-3xl lux-glass border border-amber-500/25 p-6 space-y-3"
                     >
                       <h4 className="font-bold text-sm sm:text-base text-amber-200">
                         Q{idx + 1}: {item.question}
                       </h4>
                       <p className="text-xs text-amber-400/90">{item.whyAsked}</p>
-                      <div className="p-4 rounded-2xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-stone-300 leading-relaxed">
+                      <div className="p-4 rounded-2xl bg-[#07070a] border border-stone-800 text-xs sm:text-sm text-stone-300 leading-relaxed">
                         {item.sampleAnswer}
                       </div>
                     </div>
@@ -2649,103 +2938,217 @@ export default function MasarSaaSPage() {
             </section>
           )}
 
-          {/* CUSTOMER SUPPORT SECTION AT THE BOTTOM */}
+          {/* 5. VIP CENTURION MEMBERSHIP SHOWCASE SECTION */}
+          <section id="vip-packages" className="space-y-6 pt-4">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-amber-400">
+                ✦ MASARAK VIP MEMBERSHIP
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-black text-stone-100">
+                {isAr
+                  ? "اختر باقتك التنفيذية وافتح القفل فوراً"
+                  : "Executive Membership Plans"}
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-400">
+                {isAr
+                  ? `تفعيل فوري عبر فودافون كاش على رقم (${siteSettings.vodafoneCashNumber}) بدون بطاقات بنكية`
+                  : "Instant activation via Vodafone Cash"}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Single Executive CV Card */}
+              <div className="rounded-3xl lux-glass border border-amber-500/25 p-7 flex flex-col justify-between space-y-6">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-stone-800 text-amber-200">
+                      {isAr ? "الباقة الأساسية" : "Single CV"}
+                    </span>
+                    <FileText className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <h3 className="text-xl font-black text-stone-100">
+                    {siteSettings.singlePlanNameAr}
+                  </h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-black text-amber-300">
+                      {siteSettings.singlePlanPriceEgp}
+                    </span>
+                    <span className="text-sm font-bold text-stone-400">ج.م</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                    {siteSettings.singlePlanDescAr}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setSelectedPlan("single");
+                    setShowPricingModal(true);
+                  }}
+                  className="w-full py-3.5 rounded-xl bg-[#161622] hover:bg-amber-500/20 text-amber-200 border border-amber-400/40 font-black text-xs sm:text-sm transition"
+                >
+                  {isAr
+                    ? `اشترك في باقة الـ CV الواحد (${siteSettings.singlePlanPriceEgp} ج.م)`
+                    : `Select Single Plan (${siteSettings.singlePlanPriceEgp} EGP)`}
+                </button>
+              </div>
+
+              {/* Centurion VIP Pro Card */}
+              <div className="rounded-3xl lux-centurion-card border-2 border-amber-400/60 p-7 flex flex-col justify-between space-y-6 relative">
+                <span className="absolute -top-3 left-6 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 text-neutral-950 text-[11px] font-black shadow-lg">
+                  {isAr ? "👑 الباقة الملكية الأكثر طلباً" : "👑 CENTURION VIP"}
+                </span>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-amber-500/20 text-amber-200 border border-amber-400/30">
+                      VIP UNLIMITED
+                    </span>
+                    <Crown className="w-5 h-5 text-amber-300" />
+                  </div>
+                  <h3 className="text-xl font-black text-amber-100">
+                    {siteSettings.proPlanNameAr}
+                  </h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-black bg-gradient-to-l from-amber-100 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
+                      {siteSettings.proPlanPriceEgp}
+                    </span>
+                    <span className="text-sm font-bold text-amber-200/80">ج.م / شهرياً</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-200 leading-relaxed">
+                    {siteSettings.proPlanDescAr}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setSelectedPlan("pro");
+                    setShowPricingModal(true);
+                  }}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm shadow-[0_10px_30px_rgba(217,119,6,0.35)] transition"
+                >
+                  {isAr
+                    ? `تفعيل العضوية الملكية Pro (${siteSettings.proPlanPriceEgp} ج.م)`
+                    : `Activate VIP Pro (${siteSettings.proPlanPriceEgp} EGP)`}
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* 6. EXECUTIVE CONCIERGE CUSTOMER SUPPORT DESK */}
           <section
             ref={supportSectionRef}
-            className="pt-8 border-t border-amber-500/15 max-w-4xl mx-auto"
+            className="pt-6 border-t border-amber-500/20"
           >
-            <div className="rounded-3xl bg-[#101017]/90 border border-amber-500/25 p-6 sm:p-8 space-y-5 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.85)]">
-              <div className="flex items-center justify-between flex-wrap gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300">
-                    <MessageSquare className="w-5 h-5" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 rounded-[32px] lux-glass border border-amber-500/30 p-6 sm:p-8">
+              {/* Concierge Info Column (5 Cols) */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-5 border-b lg:border-b-0 lg:border-l border-amber-500/20 pb-6 lg:pb-0 lg:pl-6">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>{isAr ? "كونسيرج دعم مسارك متصل الآن" : "Concierge Online"}</span>
                   </div>
-                  <div>
-                    <h2 className="text-lg font-extrabold text-amber-100">
-                      {isAr
-                        ? "خدمة العملاء والدعم الفني المباشر"
-                        : "Customer Support & Live Help"}
-                    </h2>
-                    <p className="text-xs text-stone-400">
-                      {isAr
-                        ? "هل لديك أي استفسار أو مشكلة في الدفع؟ اكتب رسالتك هنا وستصل للإدارة فوراً ويظهر لك الرد في نفس المحادثة."
-                        : "Send us a message below and our team will reply right here."}
-                    </p>
-                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black text-amber-100">
+                    {isAr
+                      ? "مكتب خدمة كبار العملاء والدعم المباشر"
+                      : "Executive Concierge & Live Support"}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+                    {isAr
+                      ? "تواصل مباشرة مع إدارة منصة مسارك لأي استفسار خاص بالسيرة الذاتية أو تأكيد تحويلات فودافون كاش. رسالتك تظهر فوراً للإدارة والرد يصلك في نفس النافذة."
+                      : "Message our executive support team directly and receive instant replies right here."}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#07070a] border border-amber-500/25 space-y-1">
+                  <span className="text-[11px] text-stone-400 block">
+                    {isAr ? "رقم محفظة فودافون كاش المعتمد:" : "Official Vodafone Cash:"}
+                  </span>
+                  <span className="text-lg font-black text-amber-300 font-mono tracking-wider">
+                    {siteSettings.vodafoneCashNumber}
+                  </span>
                 </div>
               </div>
 
-              {supportMessages.length > 0 && (
-                <div className="rounded-2xl bg-[#08080c] border border-stone-800 p-4 max-h-72 overflow-y-auto space-y-3">
-                  {supportMessages.map((msg) => (
-                    <div
-                      key={msg.id}
-                      className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
-                        msg.sender === "user"
-                          ? "bg-amber-500/15 border border-amber-400/30 text-stone-100 ml-auto"
-                          : "bg-emerald-600/20 border border-emerald-500/40 text-emerald-100 mr-auto"
-                      }`}
-                    >
-                      <span className="block text-[10px] font-bold opacity-75 mb-1">
-                        {msg.sender === "admin" ? "👑 رد إدارة مسارك (خدمة العملاء):" : "أنت:"}
-                      </span>
-                      <p className="whitespace-pre-wrap">{msg.text}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <form onSubmit={handleSendSupportMessage} className="space-y-3">
-                {!currentUser && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      value={guestName}
-                      onChange={(e) => setGuestName(e.target.value)}
-                      placeholder={isAr ? "اسمك" : "Your Name"}
-                      className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-white"
-                    />
-                    <input
-                      type="text"
-                      value={guestContact}
-                      onChange={(e) => setGuestContact(e.target.value)}
-                      placeholder={
-                        isAr
-                          ? "رقم موبايلك أو إيميلك للتواصل"
-                          : "Your Phone or Email"
-                      }
-                      className="px-3.5 py-2.5 rounded-xl bg-[#08080c] border border-stone-800 text-xs sm:text-sm text-white"
-                    />
+              {/* Live Chat Column (7 Cols) */}
+              <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+                {supportMessages.length > 0 ? (
+                  <div className="rounded-2xl bg-[#07070a] border border-stone-800 p-4 max-h-72 overflow-y-auto space-y-3">
+                    {supportMessages.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                          msg.sender === "user"
+                            ? "bg-amber-500/15 border border-amber-400/30 text-stone-100 ml-auto"
+                            : "bg-emerald-600/20 border border-emerald-500/40 text-emerald-100 mr-auto"
+                        }`}
+                      >
+                        <span className="block text-[10px] font-bold opacity-75 mb-1">
+                          {msg.sender === "admin" ? "👑 رد إدارة مسارك (خدمة العملاء):" : "أنت:"}
+                        </span>
+                        <p className="whitespace-pre-wrap">{msg.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-2xl bg-[#07070a]/70 border border-stone-800/80 p-5 text-center text-xs text-stone-400">
+                    {isAr
+                      ? "اكتب رسالتك أو استفسارك بالأسفل وسيتم الرد عليك مباشرة في هذه المحادثة."
+                      : "Write your message below to start a live conversation with support."}
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-2.5">
-                  <input
-                    type="text"
-                    value={supportText}
-                    onChange={(e) => setSupportText(e.target.value)}
-                    placeholder={
-                      isAr
-                        ? "اكتب رسالتك لخدمة العملاء هنا..."
-                        : "Type your message to customer support..."
-                    }
-                    className="flex-1 px-4 py-3 rounded-xl bg-[#08080c] border border-stone-800 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isSendingSupport}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>{isAr ? "إرسال لخدمة العملاء" : "Send Message"}</span>
-                  </button>
-                </div>
-                {supportStatusMsg && (
-                  <p className="text-xs text-emerald-400 font-semibold">
-                    {supportStatusMsg}
-                  </p>
-                )}
-              </form>
+                <form onSubmit={handleSendSupportMessage} className="space-y-3">
+                  {!currentUser && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        value={guestName}
+                        onChange={(e) => setGuestName(e.target.value)}
+                        placeholder={isAr ? "اسمك الكريم" : "Your Name"}
+                        className="px-3.5 py-2.5 rounded-xl bg-[#07070a] border border-stone-800 text-xs sm:text-sm text-white"
+                      />
+                      <input
+                        type="text"
+                        value={guestContact}
+                        onChange={(e) => setGuestContact(e.target.value)}
+                        placeholder={
+                          isAr
+                            ? "رقم موبايلك أو بريدك الإلكتروني"
+                            : "Your Phone or Email"
+                        }
+                        className="px-3.5 py-2.5 rounded-xl bg-[#07070a] border border-stone-800 text-xs sm:text-sm text-white"
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row gap-2.5">
+                    <input
+                      type="text"
+                      value={supportText}
+                      onChange={(e) => setSupportText(e.target.value)}
+                      placeholder={
+                        isAr
+                          ? "اكتب رسالتك لخدمة عملاء مسارك هنا..."
+                          : "Type your message to Masarak concierge..."
+                      }
+                      className="flex-1 px-4 py-3.5 rounded-xl bg-[#07070a] border border-stone-800 focus:border-amber-400 focus:outline-none text-xs sm:text-sm text-white"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSendingSupport}
+                      className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 hover:brightness-110 text-neutral-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>{isAr ? "إرسال الرسالة" : "Send Message"}</span>
+                    </button>
+                  </div>
+                  {supportStatusMsg && (
+                    <p className="text-xs text-emerald-400 font-semibold">
+                      {supportStatusMsg}
+                    </p>
+                  )}
+                </form>
+              </div>
             </div>
           </section>
         </main>
